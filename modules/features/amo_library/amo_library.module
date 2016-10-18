@@ -1,0 +1,71 @@
+<?php
+/**
+ * @file
+ * Code for the [AMO] Library feature.
+ */
+
+include_once 'amo_library.features.inc';
+
+/**
+ * Implements hook_menu
+ */
+function amo_library_menu() {
+  $items['phototheque'] = array(
+    'title' => 'Library',
+    'page callback' => 'amo_library_page',
+    'page arguments' => array(),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+* Implement hook_theme
+*/
+function amo_library_theme() {
+  return array(
+    'amo_library_list' => array(
+      'template' => 'amo-library-list',
+      'variables' => array(
+        'images' => NULL,
+        'prev_col' => NULL,
+        'next_col' => NULL,
+      ),
+    ),
+  );
+}
+
+function amo_library_page() {
+  $nids = amo_library_get_images();
+  $nodes = node_load_multiple($nids);
+  $images = array();
+  if(!empty($nodes)) {
+    $images = node_view_multiple($nodes);
+  }
+
+  $output = array(
+    '#theme' => 'amo_library_list',
+    '#images' => $images,
+    '#prev_col' => NULL,
+    '#next_col' => NULL,
+  );
+
+  $output['#prev_col'] = amo_navigation_get_next_type('library', TRUE);
+  $output['#next_col'] = amo_navigation_get_next_type('library');
+
+  $output['field_background_image'][0]['#item']['uri'] = file_create_url(drupal_get_path('theme', 'amo') . '/dist/img/bg/library-bg.jpg');
+
+  return $output;
+}
+
+function amo_library_get_images() {
+  $query = db_select('node', 'n');
+  $query->addField('n', 'nid');
+  $query->condition('n.type', 'library');
+  $query->orderBy('changed', 'DESC');
+  $nids = $query->execute()->fetchCol();
+
+  return $nids;
+}

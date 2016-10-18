@@ -1,0 +1,23 @@
+body .featherlight
+  .featherlight-content
+    transform-origin center center
+    transform scale(0)
+    transition all 0.7s bounce
+    opacity 0
+    border-bottom 2px solid #f
+    padding 2px 2px 0 2px
+    &.loaded
+      transform scale(1)
+      opacity 1
+    .featherlight-next,
+    .featherlight-previous
+      bgc transparent
+      span
+        display block
+        font-size 0
+    .featherlight-next
+      span
+        png-size 'picto/arrow-next'
+    .featherlight-previous
+      span
+        png-size 'picto/arrow-prev'

@@ -1,0 +1,5 @@
+name = Modified "Hostip"
+description = "Queries the ipinfo.io api to show the country code to user based on the user's ip"
+core = 7.x
+package = Other
+configure = admin/config/people/hostip

@@ -1,0 +1,82 @@
+.node-type-news
+  .bg-wrapper
+    jpg 'bg/news-bg'
+    background-size cover
+  .page-news
+    height 100vh
+    
+  .mobile &
+    c #0 #f
+    .mobile-title
+      jpg 'bg/news-bg-mobile' no-repeat
+      background-size cover
+      margin 0
+      height 479px
+      text-align center
+      h2
+        absolute top m-title-top
+        margin 0
+        font-weight light
+      
+    
+.news.full
+  absolute top center
+  border #f
+  padding 56 44
+  .slideshow
+    width 635
+  .news-content
+    width 580
+    padding-right 20px
+    text-align center
+    c #f
+    .news-title
+      c #f
+      text-transform uppercase
+      font-size 28px 30px
+      margin-bottom 40px
+      margin-top 16px
+  .date
+    font-size 18px
+    text-transform uppercase
+    margin-bottom 50px
+  .close
+    png-size 'picto/close-news'
+    absolute top 22 right 20
+  .body
+    c #f
+    max-height 330px
+    overflow auto
+    p
+      font-size 20px 24px
+      c inherit
+      margin-bottom 20px
+  .article-link
+    margin-top 20px
+    a
+      c #f
+      text-decoration underline
+      font-weight bold 
+      font-size 20px 24px
+  
+  .mobile &
+    relative top auto
+    margin 0
+    padding 0
+    transform none
+    c #0 #f
+    
+    padding 20
+    .slideshow
+      width 280
+    .news-content
+      width 280
+      padding 0
+      c #0
+      .news-title
+        c #0
+    .body
+      c #0
+      max-height none
+      overflow auto
+    

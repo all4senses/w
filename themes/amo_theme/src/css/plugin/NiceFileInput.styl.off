@@ -1,0 +1,26 @@
+@require '../element/form.styl'
+
+.NFI-wrapper
+  height input-height
+  .NFI-button
+    size auto input-height
+    padding 0 20px
+    font-size input-font-size input-height
+    color input-text-color input-bg-color
+    border-radius input-border-radius
+    &:hover,
+    &:active
+      {input-focus}
+  .NFI-filename
+    &:focus,
+    &:active
+      c input-text-color input-bg-color
+
+  .mobile &
+    height input-height-m
+    .NFI-button
+      font-size input-font-size-m input-height-m
+      sz 120 (input-height-m - 6)
+      border-radius input-border-radius-m
+    .NFI-filename
+      pl 10 !important

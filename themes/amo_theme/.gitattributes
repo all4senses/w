@@ -1,0 +1,7 @@
+dist/css/*  -diff
+dist/js/*  -diff
+
+# require : git config --global merge.ours.driver true
+
+dist/css/*  merge=ours
+dist/js/*  merge=ours

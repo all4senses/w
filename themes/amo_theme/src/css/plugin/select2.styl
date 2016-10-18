@@ -1,0 +1,104 @@
+@require '../element/form.styl'
+
+select-height = input-height
+
+select-highlight-color = blue
+
+.select2
+  width 100% // use a container to set width if possible
+  .select2-selection
+    bgc transparent
+    height select-height
+    border input-border-width input-border-color
+    border-radius input-border-radius
+    color #f
+    {input-padding}
+    .select2-selection__placeholder
+      // placeholder style (see js/plugin/select.js to set placeholder)
+      color inherit
+      line-height 47px
+    .select2-selection__rendered
+      font-size input-font-size 47px
+      padding 0
+      color inherit
+    .select2-selection__arrow
+      height select-height
+      border-left 10px transparent
+      border-right 10px transparent
+      border-top 10px #f
+      size 0
+      margin-top 20px
+      margin-right 20px
+      // png 'picto/select-down' center center
+      .select2-container--open&
+        // png 'picto/select-up'
+      b
+        display none
+  .select2-selection__clear
+    // clear select (allowClear)
+  
+  .mobile &
+    .select2-selection
+      height 41px
+      line-height @height - 8
+      .select2-selection__placeholder,
+      .select2-selection__rendered
+        line-height @height - 8
+      .select2-selection__arrow
+        margin-top 15px
+        transform scale(0.7)
+        
+.select2-container
+  .select2-dropdown
+    border 0
+    border-radius 0
+    box-shadow 0 3px 3px rgba(#222, 0.3)
+    ul
+      width 100%
+      max-height 340px !important
+      li
+        height 30px
+        font-family input-font
+        font-size input-font-size
+        color #0 #f
+        &[aria-selected="true"]
+          font-weight bold
+      .select2-results__option--highlighted
+        bgc color-wine
+  .select2-results__group
+    // optgroup style
+
+
+/*
+select-height-m = input-height-m
+
+.mobile &
+  .select2
+    .select2-selection
+      height select-height-m
+      border-width input-border-width-m
+      border-radius input-border-radius-m
+      {input-padding-m}
+    .select2-selection__rendered
+      font-size input-font-size-m select-height-m
+    .select2-selection__arrow
+      height select-height-m
+
+  .select2-container
+    .select2-dropdown
+      li
+        height select-height-m
+        fz input-font-size-m select-height-m
+        {input-padding-m}
+*/
+
+/* fix below should not be necessary with latest select2.js version
+body.logged-in > .select2-container
+  margin-top 29px // Drupal (29) or WP (32) admin menu height
+*/
+
+/*
+
+Pour créer des themes il faut ajouter : data-theme="mon-theme" au <select>
+
+*/

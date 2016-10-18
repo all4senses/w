@@ -1,0 +1,369 @@
+<?php
+
+/**
+ * Implements hook_theme
+ */
+function amo_navigation_theme() {
+  return array(
+    'amo_navigation_map' => array(
+      'template' => 'amo-navigation-map',
+      'variables' => array(
+        'lines' => array(),
+        'cols_max' => array(),
+      )
+    )
+  );
+}
+
+/**
+ * Retrieve the next node
+ */
+function amo_navigation_get_next($type, $nid = NULL, $link = FALSE, $prev = FALSE) {
+  // Load the menu spirit
+  $menu_name = 'menu-' . $type;
+  $menu = menu_tree($menu_name);
+
+  foreach($menu as $key => $l) {
+    if(!is_numeric($key)) {
+      unset($menu[$key]);
+    }
+  }
+  reset($menu);
+
+  // Get the first node in the menu as main page for the spirit
+  if(!$nid) {
+    $next_link = reset($menu);
+  }
+  else {
+    foreach($menu as $link) {
+      if($link['#original_link']['link_path'] == 'node/' . $nid) {
+        break;
+      }
+    }
+
+    if(empty(prev($menu))) {
+      end($menu);
+    }
+
+    if($prev) {
+      $next_link = prev($menu);
+    }
+    else {
+      $next_link = next($menu);
+    }
+  }
+
+  if($link) {
+    return $next_link['#original_link'];
+  }
+
+  $next_node = NULL;
+  $next_nid = explode('/', $next_link['#original_link']['link_path']);
+  $next_nid = end($next_nid);
+  $next_node = node_load($next_nid);
+
+  return $next_node;
+}
+
+/**
+ * Retrieve the next node type
+ */
+function amo_navigation_get_next_type($type, $prev = NULL) {
+  $navigation = array(
+    'spirit' => array(
+      "label" => t("The spirit"),
+      "link" => url('l-esprit'),
+    ),
+    'wine' => array(
+      "label" => t("Discover our wine"),
+      "link" => url('vins'),
+    ),
+    'wine_store' => array(
+      "label" => t("Wine boutique"),
+      "link" => url('wine-boutique'),
+    ),
+    'news' => array(
+      "label" => t("News"),
+      "link" => url('actualites'),
+    ),
+    'boutique' => array(
+      "label" => t("Boutique"),
+      "link" => url('boutique'),
+    ),	
+    'library' => array(
+      "label" => t("Library"),
+      "link" => url('phototheque'),
+    ),
+    'contact' => array(
+      "label" => t("Contact"),
+      "link" => url('contact'),
+    ),
+    '' => array(),
+  );
+
+  foreach($navigation as $key => $link) {
+    if($type == $key) {
+      prev($navigation);
+      break;
+    }
+  }
+
+  if($prev) {
+    $next = prev($navigation);
+  }
+  else {
+    $next = next($navigation);
+  }
+
+  if(empty($next)) {
+    $next = end($navigation);
+  }
+
+  return $next;
+}
+
+/**
+ * Build the map navigation
+ */
+function amo_navigation_map($active = NULL) {
+
+  /*-*-*-*-*-* Build the links for the map navigation *-*-*-*-*/
+
+  $frontpage = array(
+    array(
+      'main' => TRUE,
+      'link' => array(
+        'url' => url(''),
+        'active' => FALSE,
+      )
+    )
+  );
+  if($active == 'homepage') {
+    $frontpage[0]['link']['active'] = TRUE;
+  }
+
+  $spirit_links = menu_tree('menu-spirit');
+  $spirit = array();
+  $first = TRUE;
+  $set_active = FALSE;
+  foreach ($spirit_links as $key => $link) {
+    if(is_numeric($key)) {
+
+      if($active == drupal_get_path_alias($link['#href'])) {
+        $set_active = TRUE;
+      }
+
+      if($first) {
+
+        if($active == "l-esprit") {
+          $set_active = TRUE;
+        }
+
+        $spirit[] = array(
+          'main' => TRUE,
+          'link' => array(
+            'url' => url(drupal_get_path_alias($link['#href'])),
+            'active' => $set_active,
+          )
+        );
+        $first = FALSE;
+      }
+      else {
+        $spirit[] = array(
+          'main' => FALSE,
+          'link' => array(
+            'url' => url(drupal_get_path_alias($link['#href'])),
+            'active' => $set_active,
+          )
+        );
+      }
+
+      $set_active = FALSE;
+    }
+  }
+
+  $wine = array(
+    array(
+      'main' => FALSE,
+      'link' => array(
+        'url' => url('vins/chateau-les-amoureuses'),
+        'active' => FALSE,
+      )
+    ),
+    array(
+      'main' => TRUE,
+      'link' => array(
+        'url' => url('vins'),
+        'active' => FALSE,
+      )
+    ),
+    array(
+      'main' => FALSE,
+      'link' => array(
+        'url' => url('vins/terres-des-amoureuses'),
+        'active' => FALSE,
+      )
+    ),
+  );
+  if($active == 'vins/chateau-les-amoureuses') {
+    $wine[0]['link']['active'] = TRUE;
+  }
+  elseif($active == 'vins') {
+    $wine[1]['link']['active'] = TRUE;
+  }
+  elseif($active == 'vins/terres-des-amoureuses') {
+    $wine[2]['link']['active'] = TRUE;
+  }
+
+  $wine_store = array(
+    array(
+      'main' => TRUE,
+      'link' => array(
+        'url' => url('wine-boutique'),
+        'active' => FALSE,
+      )
+    )
+  );
+  if($active == 'wine-boutique') {
+    $wine_store[0]['link']['active'] = TRUE;
+  }
+
+  $news = array(
+    array(
+      'main' => TRUE,
+      'link' => array(
+        'url' => url('actualites'),
+        'active' => FALSE,
+      )
+    )
+  );
+  $path = explode('/', $active);
+  $path = reset($path);
+  if($path == 'actualites') {
+    $news[0]['link']['active'] = TRUE;
+  }
+
+   $boutique = array(
+    array(
+      'main' => TRUE,
+      'link' => array(
+        'url' => url('boutique'),
+        'active' => FALSE,
+      )
+    )
+  );
+  if($active == 'boutique') {
+    $boutique[0]['link']['active'] = TRUE;
+  } 
+  
+  $library = array(
+    array(
+      'main' => TRUE,
+      'link' => array(
+        'url' => url('phototheque'),
+        'active' => FALSE,
+      )
+    )
+  );
+  if($active == 'phototheque') {
+    $library[0]['link']['active'] = TRUE;
+  }
+
+  $contact = array(
+    array(
+      'main' => TRUE,
+      'link' => array(
+        'url' => url('contact'),
+        'active' => FALSE,
+      )
+    )
+  );
+  if($active == 'contact') {
+    $contact[0]['link']['active'] = TRUE;
+  }
+
+  $menus = array('frontpage', 'spirit', 'wine', 'wine_store', 'news', 'boutique', 'library', 'contact');
+
+  /*-*-*-*-* Sort links for the display *-*-*-*-*/
+
+  $map_nav = array();
+
+  // Set the main link foreach cols at index 0
+  foreach($menus as $key => $menu) {
+    foreach($$menu as $link) {
+      if($link['main']) {
+        $map_nav[0][$key] = $link;
+        break;
+      }
+    }
+    prev($$menu);
+  }
+
+  // Set the links before the main link
+  foreach($menus as $key => $menu) {
+    $i=0;
+   while($prev = prev($$menu)) {
+      $i -= 1;
+      $map_nav[$i][$key] = $prev;
+    }
+  }
+
+  // Reset the pointer to main link foreach cols
+  foreach($menus as $key => $menu) {
+    foreach($$menu as $link) {
+      if($link['main']) {
+        break;
+      }
+    }
+    prev($$menu);
+  }
+
+  // Set the links after the main link
+  foreach($menus as $key => $menu) {
+    $i=0;
+    while($next = next($$menu)) {
+      $i += 1;
+      $map_nav[$i][$key] = $next;
+    }
+  }
+
+
+  // Sort by line
+  ksort($map_nav);
+
+  $orientation = 'left';
+  $same_col = FALSE;
+  $same_col_line = FALSE;
+  foreach($map_nav as $line_nb => $cols) {
+    // Set horizontal orientation by default
+    // Browse one time the cols to check if the active link is in the same col
+    foreach($cols as $col_nb => $col) {
+      $map_nav[$line_nb][$col_nb]['link']['orientation'] = $orientation;
+
+      if($col['link']['active']) {
+        $same_col = $col_nb;
+        $same_col_line = $line_nb;
+        $orientation = 'right';
+      }
+    }
+  }
+
+  $orientation = 'top';
+  if($same_col !== FALSE && $same_col_line !== FALSE) {
+    foreach($map_nav as $line_nb => $cols) {
+      if(!empty($map_nav[$line_nb][$same_col])) {
+        $map_nav[$line_nb][$same_col]['link']['orientation'] = $orientation;
+      }
+
+      if($same_col_line == $line_nb) {
+        $orientation = 'bottom';
+      }
+    }
+  }
+
+  return array(
+    '#theme' => 'amo_navigation_map',
+    '#lines' => $map_nav,
+    '#cols_max' => count($menus),
+  );
+}

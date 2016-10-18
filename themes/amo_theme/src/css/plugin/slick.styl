@@ -1,0 +1,31 @@
+.slick-slider
+  {R}
+  .slide
+    position relative
+  .prev,
+  .next
+    top center zi 200
+    size 20
+    &:hover
+      //
+  .prev
+    left 60
+    png-size 'picto/prev' center center
+  .next
+    right 60
+    png-size 'picto/next' center center
+  .dots
+    absolute bottom 21 left z 900
+    width 100%
+    text-align center
+    li
+      display inline-block
+      a
+        float left
+        size 18
+        text-indent -9999em
+        margin 0 4.5px
+        bgc #fff
+      &:hover a,
+      &.slick-active a
+        bgc color-wine

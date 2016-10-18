@@ -1,0 +1,7 @@
+name = Commerce Custom
+description = -
+core = 7.x
+package = AMO
+
+;contrib
+dependencies[] = commerce

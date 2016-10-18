@@ -1,0 +1,10 @@
+(function($){'use strict';Drupal.behaviors.gd_plugin_nicefileinput={attach:function(context,settings) {
+
+  var files = $('.form-type-managed-file').not('.js-processed').addClass('js-processed').find('input[type=file]');
+
+  files.nicefileinput({
+    label : 'Choisissez un fichier...'
+  });
+
+}}})(jQuery);
+

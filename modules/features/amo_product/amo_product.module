@@ -1,0 +1,221 @@
+<?php
+/**
+ * @file
+ * Code for the [AMO] Product feature.
+ */
+
+include_once 'amo_product.features.inc';
+
+/**
+ * Implements hook_menu
+ */
+function amo_product_menu() {
+  $items['vins'] = array(
+    'title' => 'Discover our wine',
+    'page callback' => 'amo_product_choice_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['vins/%'] = array(
+    'title' => 'Discover our wine',
+    'page callback' => 'amo_product_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['boutique'] = array(
+    'title' => 'Online Store',
+    'page callback' => 'amo_product_list_page',
+    'page arguments' => array(1),	
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );  
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info_alter
+ */
+function amo_product_entity_info_alter(&$entity_info){
+  $entity_info['node']['view modes']['castle'] = array(
+    'label' => t('Chateau les amoureuses'),
+    'custom settings' => FALSE,
+  );
+  $entity_info['node']['view modes']['land'] = array(
+    'label' => t('Terres des amoureuses'),
+    'custom settings' => FALSE,
+  );
+  $entity_info['node']['view modes']['list'] = array(
+    'label' => t('Liste bouteilles'),
+    'custom settings' => FALSE,
+  );   
+}
+
+/**
+ * Implements hook_theme
+ */
+function amo_product_theme() {
+  return array(
+    "amo_product_choice_page" => array(
+      'template' => 'amo-product-choice-page',
+      'variables' => array(
+        'land_link' => NULL,
+        'castle_link' => NULL,
+        'prev_col' => NULL,
+        'next_col' => NULL,
+      ),
+    ),
+    "amo_product_page" => array(
+      'template' => 'amo-product-page',
+      'variables' => array(
+        'sort_links' => NULL,
+        'products' => NULL,
+        'choice_link' => NULL,
+        'type' => NULL,
+      ),
+    ),
+    'amo_product_list' => array(
+      'template' => 'amo-product-list',
+      'variables' => array(
+        'products' => NULL,
+        'prev_col' => NULL,
+        'next_col' => NULL,
+      ),
+    ),	
+  );
+}
+
+function amo_product_choice_page() {
+  $land_link = url('vins/terres-des-amoureuses');
+  $castle_link = url('vins/chateau-les-amoureuses');
+
+  $prev_col = amo_navigation_get_next_type('wine', TRUE);
+  $next_col = amo_navigation_get_next_type('wine');
+
+  $output = array(
+    '#theme' => 'amo_product_choice_page',
+    '#land_link' => $land_link,
+    '#castle_link' => $castle_link,
+    '#prev_col' => $prev_col,
+    '#next_col' => $next_col,
+  );
+
+  return $output;
+}
+
+function amo_product_page($type) {
+  $language = 'fr';
+  if(!empty($_SESSION['language'])) {
+    $language = $_SESSION['language'];
+  }
+
+  if($type == "terres-des-amoureuses") {
+    $type = 'land';
+    $page = 'page_1';
+  }
+  elseif($type == "chateau-les-amoureuses") {
+    $type = 'castle';
+    $page = 'page';
+  }
+  else {
+    return;
+  }
+
+  $query = db_select('field_data_field_product_type', 'p');
+  $query->addField('p', 'entity_id');
+  $query->condition('p.field_product_type_value', $type);
+  $query->join('node', 'n', 'n.nid = p.entity_id');
+  $query->condition('n.language', $language);
+  $query->join('draggableviews_structure', 'w', 'w.entity_id = n.nid AND w.view_name = :view', array(':view' => 'product_chateau_default_order'));
+  $query->condition('w.view_display', $page);
+  $query->orderBy('w.weight', 'ASC');
+  $nids = $query->execute()->fetchCol();
+
+  $products = array();
+  if(!empty($nids)) {
+    $products = node_load_multiple($nids);
+    $products = node_view_multiple($products, $type);
+  }
+
+  $sort_links = array();
+  if($type == 'land') {
+    $vocab = taxonomy_vocabulary_machine_name_load('color');
+  }
+  else {
+    $vocab = taxonomy_vocabulary_machine_name_load('type_chateau');
+  }
+
+
+  if(!empty($vocab)) {
+    $terms = taxonomy_get_tree($vocab->vid);
+
+    foreach($terms as $term) {
+      $sort_links[$term->tid] = $term->name;
+    }
+  }
+
+  $output = array(
+    '#theme' => 'amo_product_page',
+    '#sort_links' => $sort_links,
+    '#products' => $products,
+    '#choice_link' => url('vins'),
+    '#type' => $type,
+  );
+
+  $output['field_background_image'][0]['#item']['uri'] = file_create_url(drupal_get_path('theme', 'amo') . '/dist/img/bg/product-' . $type . '.jpg');
+
+  return $output;
+}
+
+/**
+ * Page callback product list
+ */
+function amo_product_list_page($type) {
+	
+$type = "product";	
+	
+$products = node_load_multiple(array(), array('type' => $type));
+
+    $products = node_view_multiple($products, $view_mode = 'list');
+  	
+    $output = array(
+      '#theme' => 'amo_product_list',
+       '#products' => $products,  
+    );
+
+  $output['#prev_col'] = amo_navigation_get_next_type('boutique', TRUE);
+  $output['#next_col'] = amo_navigation_get_next_type('boutique');
+
+  $output['field_background_image'][0]['#item']['uri'] = file_create_url(drupal_get_path('theme', 'amo') . '/dist/img/bg/bg-white.jpg');
+
+  return $output;
+}
+
+/** Theming LIST view mode **/
+
+function amo_product_preprocess_node(&$vars) {
+  if ($vars['node']->type == 'product' && $vars['view_mode'] == 'list') {
+    $vars['theme_hook_suggestions'][] = 'node__product__list';
+  }
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter
+ */
+function amo_product_form_product_node_form_alter(&$form, &$form_state) {
+  //die(kpr($form));
+  /*$form['field_product_color']['#states'] = array(
+    'visible' => array(
+      ':input[name=field_product_type[und]]' => array('value' => 'land'),
+    )
+  );
+
+  $form['field_product_chateau_type']['#states'] = array(
+    'visible' => array(
+        ':input[name=field_product_type[und]]' => array('value' => 'castle'),
+    )
+  );*/
+}

@@ -1,0 +1,4 @@
+name = Custom cart
+description = Custom cart module
+core = 7.x
+package = Other

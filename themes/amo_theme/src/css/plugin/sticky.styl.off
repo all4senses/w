@@ -1,0 +1,24 @@
+.header-placeholder
+  {R}
+  
+.header-placeholder-fixed
+  {R}
+  display none
+
+.header-fixed
+  .header-placeholder-fixed
+    display block
+  #header
+    fixed top left zi 990
+    transform translateY(0)
+    {tr}
+    .admin-menu&
+      top 29
+
+.always-fixed
+  #header
+    fixed zi 990
+
+.header-hide
+  #header
+    transform translateY(-100%)

@@ -1,0 +1,26 @@
+name = GD Core
+description = -
+core = 7.x
+package = GD
+
+dependencies[] = gd_theme
+
+
+files[] = tests/gd_core.test
+
+;contrib
+dependencies[] = clone
+
+;custom
+dependencies[] = amo_contact
+dependencies[] = amo_enter_page
+dependencies[] = amo_navigation
+
+;features
+dependencies[] = amo_ct_spirit
+dependencies[] = amo_product
+dependencies[] = amo_news
+dependencies[] = amo_library
+;dependencies[] = amo_metatag
+dependencies[] = amo_page_simple
+dependencies[] = amo_roles

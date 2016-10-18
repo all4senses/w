@@ -1,0 +1,132 @@
+#menu-open
+  fixed top 60 right -22 z 800
+  display none
+  size 120 60
+  text-align center
+  c #f
+  font-size 28px 60px
+  letter-spacing 2px
+  font-family font-serif
+  transform-origin center
+  transform rotate(-90deg)
+  &:hover
+    c #f
+
+  .page-homepage &
+    display none
+
+  .mobile &
+    right auto left 0 top 0
+    size 50
+    bgc #0
+    text-indent -99999em
+    png 'picto/menu' center center
+    transform none
+
+#side-menu
+  absolute top right -430 z 900
+  size 430 100vh
+  // padding-top 100px
+  c #0 #f
+  overflow auto
+  transition all 0.4s ease
+  text-align center
+  &.open
+    right 0
+  .close
+    absolute top 33 right 30
+    png-size 'picto/close'
+  .social-links
+    margin-top 60
+    margin-bottom 25px
+    a
+      display inline-block
+      margin 0 10
+    .fb
+      png-size 'picto/fb'
+    .tw
+      png-size 'picto/tw'
+    .in
+      png-size 'picto/in'
+    .yt
+      png-size 'picto/yt'
+  .menu-link
+    c #0
+    font-family font-serif
+    font-size 24px
+    text-transform none
+    letter-spacing 0.2px
+    margin-top 70px
+    .main-col
+      color #0
+    .sub-menu
+      text-transform uppercase
+      fz 18px 20px
+      text-transform normal
+      margin-top 25px
+      .menu
+        width 100%
+        padding-left 0
+        list-style none
+      a
+        color color-menu
+        &:hover
+          c #0
+
+  .contact
+    margin-top 0
+
+  .menu-legal
+    text-align center
+    white-space nowrap
+    margin-top 25px
+    font-size 0
+    a,
+    .copyright
+      text-transform uppercase
+      display inline-block
+      font-size 12px
+      font-family font
+      color #000
+    a
+      padding-right 6px
+      margin-right 6px
+      border-right #0
+      &:hover
+        color #000
+        text-decoration underline
+    .copyright
+      padding-left 2px
+
+  .legal
+    text-align center
+    font-size 12px
+    margin-top 20px
+
+
+  .mobile &
+    right 0
+    width 100%
+    opacity 0
+    pointer-events none
+    padding-top 20
+    &.open
+      pointer-events all
+      opacity 1
+    .close
+      top 10 right auto left 10
+    .menu-link
+      font-size 18.5px
+      margin-top 25px
+      .sub-menu
+        display none
+    .social-links
+      margin-top 30
+      margin-bottom 0
+    .menu-legal
+      a
+        font-size 10.5px
+      .credit
+        border 0
+    .legal
+      font-size 10px

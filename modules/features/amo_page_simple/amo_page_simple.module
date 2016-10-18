@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the [AMO] Page simple feature.
+ */
+
+include_once 'amo_page_simple.features.inc';

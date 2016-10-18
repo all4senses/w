@@ -1,0 +1,105 @@
+<?php
+/**
+ * Add simplenews types
+ */
+function amo_contact_install() {
+  amo_save_contact_webform();
+}
+
+
+
+/**
+ * Save contact webform
+ */
+function amo_save_contact_webform() {
+  $node = new stdClass();
+  $node->type = 'webform';
+  node_object_prepare($node);
+  $node->title = 'Contact';
+  $node->body[LANGUAGE_NONE][0]['value']   = '';
+  $node->body[LANGUAGE_NONE][0]['format']  = 'full_html';
+  $node->uid = 1;
+  $node->promote = 0;
+  $node->comment = 0;
+
+  // Create the webform components.
+  $components = array(
+    array(
+      'name' => 'Your name',
+      'form_key' => 'name',
+      'type' => 'textfield',
+      'mandatory' => 1,
+      'weight' => 10,
+      'pid' => 0,
+      'extra' => array(
+        'title_display' => 'inline',
+        'private' => 0,
+      ),
+    ),
+    array(
+      'name' => 'Your Email',
+      'form_key' => 'email',
+      'type' => 'email',
+      'mandatory' => 1,
+      'weight' => 20,
+      'pid' => 0,
+      'extra' => array(
+        'title_display' => 'inline',
+        'private' => 0,
+      ),
+    ),
+    array(
+      'name' => 'Your Message',
+      'form_key' => 'message',
+      'type' => 'textarea',
+      'mandatory' => 1,
+      'weight' => 40,
+      'pid' => 0,
+      'extra' => array(
+        'title_display' => 'inline',
+        'private' => 0,
+        'resizable' => 0,
+      ),
+    ),
+  );
+
+  // Setup notification email.
+  $emails = array(
+    array(
+      'email' => '[site:mail]',
+      'subject' => 'default',
+      'from_name' => 'default',
+      'from_address' => 'default',
+      'template' => 'default',
+      'excluded_components' => array(),
+    ),
+  );
+
+  // Attach the webform to the node.
+  $node->webform = array(
+    'confirmation' => '',
+    'confirmation_format' => NULL,
+    'redirection' => 'none',
+    'status' => '1',
+    'block' => '0',
+    'teaser' => '0',
+    'allow_draft' => '0',
+    'auto_save' => '0',
+    'submit_notice' => '1',
+    'submit_limit' => '-1', // User can submit more than once.
+    'submit_interval' => '-1',
+    'submit_text' => t("Send"),
+    'total_submit_limit' => '-1',
+    'total_submit_interval' => '-1',
+    'record_exists' => TRUE,
+    'roles' => array(
+      0 => '1', // Anonymous user can submit this webform.
+    ),
+    'emails' => $emails,
+    'components' => $components,
+  );
+
+  // Save the node.
+  node_save($node);
+  variable_set('amo_webform_contact_nid', $node->nid);
+}

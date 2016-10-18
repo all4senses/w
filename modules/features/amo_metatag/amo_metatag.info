@@ -1,0 +1,7 @@
+name = [AMO] Metatag
+core = 7.x
+package = AMO
+dependencies[] = metatag
+features[features_api][] = api:2
+features[metatag][] = global
+project path = sites/all/modules/features

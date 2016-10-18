@@ -1,0 +1,28 @@
+.ajax-wrapper
+  fixed full
+  size 100vw 100vh
+  transition transform 0.36s ease
+  .bg-wrapper
+    absolute full z 1
+    size @size
+    background-size cover !important
+    background-position top center
+  .wrapper-content
+    relative zi 100
+  &.from-right
+    transform translate3d(100%, 0, 0)
+  &.from-left
+    transform translate3d(-100%, 0, 0)
+  &.from-top
+    transform translate3d(0, -100%, 0)
+  &.from-bottom
+    transform translate3d(0, 100%, 0)
+  &.display
+    transform translate3d(0, 0, 0) !important
+  
+
+  .mobile &
+    overflow auto
+    // height auto
+    .bg-wrapper
+      display none

@@ -1,0 +1,112 @@
+{
+  "name": "les-amoureuses",
+  "shortname": "amo",
+  "ico": "",
+  "repository": {
+    "url": "git@git.studio.gd:gd/les-amoureuses.git",
+    "token": "facFy-aetwwEVtzCx8iQ"
+  },
+  "config": {
+    "type": "drupal",
+    "version": "7.x",
+    "default_server": "preprod",
+    "db_name": "les-amoureuses",
+    "branch": "",
+    "gitlab_id": 224,
+    "wp-content": "wp-content"
+  },
+  "servers": {
+    "dev": {
+      "url": "local.les-amoureuses.wine",
+      "db_name": "",
+      "db_user": "root",
+      "db_pass": "",
+      "branch": ""
+    },
+    "preprod": {
+      "ip": "91.121.177.174",
+      "port": 22,
+      "user": "root",
+      "folder": "/home/preprod",
+      "site": "/home/preprod/les-amoureuses/web/",
+      "theme": "/home/preprod/les-amoureuses/web/sites/all/themes/amo_theme",
+      "url": "amo.preprod.it",
+      "branch": "",
+      "db_name": ""
+    },
+    "prod": {
+      "ip": "37.187.72.12",
+      "port": 22,
+      "user": "root",
+      "folder": "/home/prod",
+      "site": "/home/prod/les-amoureuses/web/",
+      "theme": "/home/prod/les-amoureuses/web/sites/all/themes/amo_theme",
+      "url": "terresdesamoureuses.com",
+      "branch": "",
+      "db_name": ""
+    }
+  },
+  "links": {
+    "Google doc": "https://drive.google.com/a/studio.gd/"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "gulpfile.js",
+  "scripts": {
+    "gdprod": "ssh -t -p $npm_package_servers_prod_port $npm_package_servers_prod_user@$npm_package_servers_prod_ip \"cd $npm_package_servers_prod_site ; bash --login\"",
+    "gdpreprod": "ssh -t -p $npm_package_servers_preprod_port $npm_package_servers_preprod_user@$npm_package_servers_preprod_ip \"cd $npm_package_servers_preprod_site ; bash --login\"",
+    "up": "sudo ncu -ua && sudo npm i && gulp"
+  },
+  "author": "Studio.gd",
+  "license": "",
+  "devDependencies": {
+    "autoprefixer": "^6.4.0",
+    "css-mqpacker": "^5.0.1",
+    "csswring": "^5.1.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-file": "^0.3.0",
+    "gulp-imagemin": "^3.0.2",
+    "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^2.0.0-alpha",
+    "gulp-stylus": "^2.5.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "is-there": "^4.3.3",
+    "main-bower-files": "^2.13.1",
+    "postcss-border-shortcut": "^0.0.5",
+    "postcss-center": "^1.0.0",
+    "postcss-circle": "^1.0.0",
+    "postcss-color-short": "^0.2.3",
+    "postcss-crip": "^2.0.0",
+    "postcss-default-unit": "^1.0.0",
+    "postcss-flexbugs-fixes": "^2.0.0",
+    "postcss-font-magician": "rajdee/postcss-font-magician",
+    "postcss-font-weights": "^2.0.1",
+    "postcss-initial": "^1.5.2",
+    "postcss-normalize-charset": "^1.1.0",
+    "postcss-opacity": "^4.0.0",
+    "postcss-position-alt": "^0.6.1",
+    "postcss-pxtorem": "^3.3.1",
+    "postcss-quantity-queries": "^0.4.0",
+    "postcss-short-color": "^1.0.0",
+    "postcss-short-font-size": "^1.0.1",
+    "postcss-size": "^1.0.0",
+    "postcss-triangle": "^1.0.1",
+    "rupture": "^0.6.1"
+  },
+  "dependencies": {},
+  "plugins": [
+    "responsive",
+    "slick",
+    "icheck",
+    "select2",
+    "gmaps",
+    "scroll",
+    "featherlight"
+  ]
+}

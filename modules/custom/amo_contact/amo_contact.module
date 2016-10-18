@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Get the contact form
+ */
+function amo_contact_form_contact() {
+  $nid_webform = variable_get('amo_webform_contact_nid', NULL);
+  $contact_form = '';
+  if($nid_webform) {
+    $node = node_load($nid_webform);
+    if($node) {
+      $contact_form = node_view($node);
+    }
+  }
+
+  return $contact_form;
+}

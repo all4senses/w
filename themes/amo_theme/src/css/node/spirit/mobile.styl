@@ -1,0 +1,53 @@
+.spirit-mobile
+  {R}
+  text-align center
+  .image
+    height 296px
+    background-size cover
+    background-position center
+    .title-domain
+      c #f
+      font-size 36px
+      margin-top 130px
+      font-weight light
+      font-family font-serif 
+  .body
+    bgc #f
+    padding 25px
+    padding-bottom 62px
+    min-height 246px
+    max-height 246px
+    overflow hidden 
+    {tr}
+    p
+      font-size 14.5px 18px
+      font-weight light
+      b, strong
+        font-weight bolder  
+  .mask
+    absolute t 40 l z 50
+    size 100% 206
+    png 'picto/spirit/mask' repeat-x
+    {tr}
+  .read-more
+    absolute bottom 55 left center z 90
+    c #0 #f
+    border currentColor
+    height 39px
+    line-height 36px 
+  
+  &.headline
+    .image
+      height 479px
+      .title-domain
+        margin-top m-title-top
+        font-weight light 
+
+  &.open
+    .body
+      max-height none
+    .mask
+      opacity 0
+    .read-more
+      display none
+      

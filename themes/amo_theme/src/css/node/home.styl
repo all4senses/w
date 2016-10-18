@@ -1,0 +1,68 @@
+.ajax-wrapper.page-homepage
+  .bg-wrapper
+    display none
+    // jpg 'home/home-bg'
+  .wrapper-content
+    absolute center
+    text-align center
+    height auto !important // required
+
+  .logos
+    {R}
+    margin-bottom 90px
+    .logo
+      display inline-block
+      vertical-align middle
+      background-repeat no-repeat
+    .logo-terre
+      background-image url('../img/logo-terre.svg')
+      size 468px 86px
+      background-size @size
+    .logo-chateau
+      background-image url('../img/logo-chateau.svg')
+      size 464px 94px
+      background-size @size
+
+  #video-bg
+    fixed full z -1
+    video
+      size 100vw 100vh
+      object-fit cover
+
+  .evin
+    absolute bottom 25 left
+    width 100%
+    text-align center
+    color #f
+    pointer-events none
+
+  .mobile &
+    #video-bg
+      display none
+    .wrapper-content
+      display block
+      jpg 'home/mobile-bg'
+      background-size cover !important
+      float left
+      transform none
+      margin 0
+      top left
+
+    .evin
+      relative left center bottom auto
+      width 85%
+      font-size 12px
+      margin-top 20px
+      margin-bottom 20px
+
+    .logos
+      margin-bottom 10px
+      margin-top 50px
+      .logo
+        margin-bottom 25px
+      .logo-terre
+        size 191 36
+        background-size @size
+      .logo-chateau
+        size 193 39
+        background-size @size

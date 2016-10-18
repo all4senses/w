@@ -1,0 +1,197 @@
+<?php
+
+/**
+ * Implements hook_preprocess_page
+ */
+function amo_enter_page_preprocess_page(&$variables) {
+  if(!amo_enter_page_check() && !$variables['is_front']) {
+    $metatag = $variables['page']['content']['metatags'];
+    unset($variables['page']);
+    $variables['page']['content']['metatags'] = $metatag;
+    $variables['page']['content']['system_main']['main'] = drupal_get_form('amo_enter_page_form');
+  }
+}
+
+/**
+ * Implements hook_menu
+ */
+function amo_enter_page_menu() {
+  $items['homepage'] = array(
+    'title' => t("Homepage"),
+    'page callback' => 'amo_enter_page_homepage_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Homepage callback.
+ */
+function amo_enter_page_homepage_callback() {
+  $form = array();
+
+  if(!amo_enter_page_check()) {
+    $form = drupal_get_form('amo_enter_page_form');
+  }
+
+  return theme(
+    'amo_enter_page',
+    array('form' => $form)
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function amo_enter_page_theme($existing, $type, $theme, $path) {
+  return array(
+    'amo_enter_page' => array(
+      'variables' => array('form'=> NULL),
+    ),
+  );
+}
+/**
+ * Build validation form for the site
+ */
+function amo_enter_page_form($form, &$form_state) {
+  $language_list = language_list();
+  $available_language = array();
+  foreach($language_list as $language) {
+    $available_language[$language->language] = $language->language;
+  }
+
+  $legal_ages = amo_enter_page_get_legal_ages();
+  ksort($legal_ages);
+  $countries = array();
+  foreach($legal_ages as $country => $age) {
+    $countries[$country] = t($country);
+  }
+
+  $age = 18;
+  if(!empty($form_state['values']['country'])) {
+    $age = $legal_ages[$form_state['values']['country']];
+  }
+
+  $date = NULL;
+  if(!empty($age)) {
+    $date = time() - ($age * 31536000);
+    $date = date('d/m/Y', $date);
+  }
+
+  $form['country'] = array(
+    "#type" => "select",
+    "#title" => t("Your country"),
+    "#options" => $countries,
+    "#default_value" => t("France"),
+    "#required" => TRUE,
+    "#ajax" => array(
+      'callback' => 'amo_enter_page_ajax_callback',
+      'wrapper' => 'age-wrapper',
+      'method' => 'replace',
+      'progress' => 'none',
+      'event' => 'change',
+    )
+  );
+
+  $form['age_wrapper'] = array(
+    "#type" => "container",
+    "#prefix" => '<div id="age-wrapper">',
+    "#suffix" => '</div>',
+  );
+
+  if($date) {
+    $form['age_wrapper']['age_validation'] = array(
+      "#type" => "radios",
+      "#title" => t("Are you born before the ") . $date . ' ?',
+      "#options" => array(
+        1 => t("Yes"),
+        0 => t("No"),
+      ),
+    );
+  }
+  else {
+    $form['age_wrapper']['age_validation'] = array(
+      "#type" => "value",
+      "#value" => 1,
+    );
+  }
+
+  $form['language'] = array(
+    "#type" => "radios",
+    "#title" => t("Your language"),
+    "#options" => $available_language,
+  );
+
+  $form['submit'] = array(
+    "#type" => "submit",
+    "#value" => t("Enter"),
+  );
+
+  return $form;
+}
+
+/**
+ * Callback ajax
+ */
+function amo_enter_page_ajax_callback(&$form, &$form_state) {
+  return $form['age_wrapper'];
+}
+
+/**
+ * Form validate
+ */
+function amo_enter_page_form_validate($form, $form_state) {
+  if(empty($form_state['values']['age_validation']) || $form_state['values']['age_validation'] != 1) {
+    form_set_error('age_validation', 'You need to be over the age of majority');
+  }
+}
+
+/**
+ * Form submit
+ */
+function amo_enter_page_form_submit(&$form, &$form_state) {
+  global $language;
+
+  $_SESSION['amo_age_validation'] = 1;
+  $_SESSION['language'] = 'fr';
+
+  if(!empty($form_state['values']['language'])) {
+    $_SESSION['language'] = $form_state['values']['language'];
+  }
+
+  $lang = i18n_language_load($_SESSION['language']);
+  if(!empty($lang)) {
+    $language = $lang;
+  }
+
+  drupal_goto('l-esprit', array('language' => $language));
+}
+
+/**
+ * Retrieve legal ages from the json file
+ */
+function amo_enter_page_get_legal_ages($country = NULL) {
+  $json = file_get_contents(drupal_get_path('module', 'amo_enter_page') . '/json/legal_age.json');
+  $legal_ages = drupal_json_decode($json);
+
+  if($country && isset($legal_ages[$country])) {
+    return $legal_ages[$country];
+  }
+
+  return $legal_ages;
+}
+
+/**
+ * Check the session variables if not set display the homepage form
+ */
+function amo_enter_page_check() {
+  global $user;
+
+  if(empty($_SESSION['amo_age_validation']) && $user->uid != 1) {
+    return FALSE;
+  }
+
+  return TRUE;
+}

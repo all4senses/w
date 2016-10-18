@@ -1,0 +1,6 @@
+name = GD Theme
+description = -
+core = 7.x
+package = GD
+
+scripts[] = js/lib/browser.js

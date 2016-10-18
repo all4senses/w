@@ -1,0 +1,31 @@
+.gd-pager
+{
+  float:left;
+  width:100%;
+  margin-top:12px;
+  margin-bottom:5px;
+  text-align:center;
+}
+.gd-pager a
+{
+  display:inline-block;
+  padding:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  border:1px solid #ccc;
+  margin-left:4px;
+  margin-right:4px;
+}
+.gd-pager a:hover,
+.gd-pager a.pager-current
+{
+  color:#000;
+  background-color:#eee;
+  text-decoration:none;
+  border-color:#aaa;
+}
+.gd-pager a.pager-current
+{
+  font-weight:bold;
+  border-color:#777;
+}

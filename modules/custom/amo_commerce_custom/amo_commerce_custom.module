@@ -1,0 +1,52 @@
+<?php
+
+function amo_commerce_custom_cart_form($form, &$form_state, $args) {
+    
+    $product = commerce_product_load($args['product_id']);
+
+    $form['#attributes'] = array('class' => 'cf');
+
+    $form['product_id'] = array(
+        '#type' => 'hidden',
+        '#value' => $product->product_id,
+    );
+
+    $form['qty'] = array(
+        '#title' => $product->title,
+        '#type' => 'textfield',
+        '#default_value' => 1,
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Add to Cart'),
+        '#ajax' => array(
+            'callback' => 'amo_commerce_custom_cart_form_submit_callback',
+        ),
+    );
+        
+    return $form;
+}
+
+function amo_commerce_custom_cart_form_submit_callback($form, &$form_state) {
+    commerce_cart_product_add_by_id($form_state['values']['product_id'], $form_state['values']['qty']);
+    $commands = array();
+    $commands[] = array(
+        'command' => 'updateCartSummary',
+        'qty' => $form_state['values']['qty'],
+    );
+    return array(
+        '#type' => 'ajax',
+        '#commands' => $commands,
+    );
+}
+
+function amo_commerce_custom_forms($form_id) {
+  if (preg_match('/^amo_commerce_custom_cart_form_\d+$/', $form_id)) {
+    return array(
+      $form_id => array(
+        'callback' => 'amo_commerce_custom_cart_form',
+      ),
+    );
+  }
+}

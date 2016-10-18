@@ -1,0 +1,194 @@
+
+/* size & padding */
+input-height    = 52px // height must be specified in px as it's also used for line-height
+textarea-height = auto
+input-padding =
+  padding 3 4
+
+/* font */
+input-font      = font
+input-font-size = 15px
+
+/* border style */
+input-border-width  = 1px
+input-border-color  = #f
+input-border-radius = border
+
+/* colors */
+input-text-color    = #f
+input-bg-color      = transparent
+input-invalid-color = red
+
+input-focus =
+  color #000
+  bgc #fff
+
+label,
+.form-wrapper,
+.form-actions,
+.form-item,
+form .description
+  {R}
+
+label.form-required:after
+  content '*'
+  margin-left 5
+
+form
+  .form-item
+    margin 12px 0
+
+
+    textarea
+      height 165px
+
+label
+  line-height 45px
+  margin 0
+  c #f
+  
+  .mobile &
+    line-height 2 
+
+form .form-item .description
+  margin-top 3px
+  font-size 13px
+  font-style italic
+  color #7
+
+input[type=search]::-webkit-search-decoration
+  display none
+
+
+/* .form-type-item is the default class for Drupal presetted field (eg. email when logged) */
+//.form-type-item,
+input[type=text],
+input[type=password],
+input[type=search],
+input[type=url],
+input[type=email]
+  appearance none
+
+//.form-type-item,
+textarea,
+select,
+input[type=text],
+input[type=password],
+input[type=search],
+input[type=url],
+input[type=email]
+  {input-padding}
+  {tr}
+  border-radius input-border-radius
+  color input-text-color input-bg-color
+  border input-border-width input-border-color
+  outline 0
+  text-align left
+  font-size input-font-size
+  font-family input-font
+  vertical-align top
+  size 100% input-height
+  &:focus
+    &::placeholder
+      color #bbb
+  &:-moz-ui-invalid
+    box-shadow 0 0 3px input-invalid-color
+  &:invalid /*  */
+    //
+  
+  .mobile &
+    height 27px
+    line-height 27px
+    
+
+textarea,
+select[size],
+select[multiple]
+  height auto
+
+textarea
+  min-height 40px
+  overflow auto
+  resize vertical
+
+input,
+textarea
+  &::placeholder
+    color #666
+    opacity 1
+
+input,
+select,
+textarea
+  &:focus
+    {input-focus}
+
+form .form-item .error
+  border-width 1px
+
+input[type=file],
+input[type=radio],
+input[type=checkbox]
+  &:focus,
+  &:active
+    box-shadow none
+
+//.form-type-item,
+textarea[disabled],
+select[disabled],
+input[type=text][disabled],
+input.form-text[disabled]
+  background-color #eee
+
+//.form-type-item,
+button[disabled],
+input[disabled],
+select[disabled],
+select[disabled] option,
+textarea[disabled]
+  box-shadow none
+  user-select none
+  color #888
+  cursor default
+
+/*
+textarea[required]
+select[required]
+input[required]
+input[required]
+input.form-text[required]
+*/
+
+
+/* mobile size & padding */
+input-height-m    = 24px
+input-font-size-m = 9px
+input-padding-m   =
+  padding 2 3
+
+/* mobile border style */
+input-border-width-m  = input-border-width
+input-border-radius-m = input-border-radius
+
+/*
+.mobile &
+  .form-type-item,
+  textarea,
+  select,
+  input[type=text],
+  input[type=password],
+  input[type=search],
+  input[type=url],
+  input[type=email]
+    font-size input-font-size-m
+    {input-padding-m}
+
+  //.form-type-item,
+  input[type=text],
+  input[type=password],
+  input[type=search],
+  input[type=url],
+  input[type=email]
+    height input-height-m
+    line-height input-height-m
+*/

@@ -1,0 +1,56 @@
+<?php 
+
+// custom_cart
+
+/**
+ * Implements hook_form_FORM_ID_alter(): commerce_cart_add_to_cart_form
+ */
+function custom_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$form_state) {
+  $form['submit']['#ajax'] = array('callback' => 'custom_cart_add_to_cart_ajax_callback');
+  $form['#submit'][] = 'custom_cart_add_to_cart_form_submit';
+}
+ 
+/**
+ * "Add to cart" button ajax callback.
+ */
+function custom_cart_add_to_cart_ajax_callback($form, &$form_state) {
+	// print'<pre>'.print_r($form_state, true).'</pre>';
+	GLOBAL $user;
+	drupal_get_messages();
+	$uid = $user->uid;
+	$product_quantity_count = 0;
+	if ($order = commerce_cart_order_load($uid)) {
+		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+		foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+			if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
+				$product_quantity_count += $line_item_wrapper->quantity->value();    
+			}
+		} 
+	}
+	return array(
+		'#type' => 'ajax',
+		'#commands' => array(
+			ajax_command_html('.cart-summary-left .qty', $product_quantity_count),
+			ajax_command_css('.cart-summary-left .qty div', array('display' => 'inline-block')),
+			array(
+				'command' => 'show_my_cart',
+				'id' => str_replace('_', '-', $form_state['input']['form_id']),
+			),
+		),
+	);
+}
+ 
+/**
+ * "Add to cart" button submit callback.
+ */
+function custom_cart_add_to_cart_form_submit($form, &$form_state){
+  $form_state['rebuild'] = TRUE;
+}
+
+
+
+
+
+
+
+

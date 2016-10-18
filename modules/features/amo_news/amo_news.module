@@ -1,0 +1,120 @@
+<?php
+/**
+ * @file
+ * Code for the [AMO] News feature.
+ */
+
+include_once 'amo_news.features.inc';
+
+/**
+ * Implements hook_menu
+ */
+function amo_news_menu() {
+  $items['actualites'] = array(
+    'title' => 'News',
+    'page callback' => 'amo_news_page',
+    'page arguments' => array(1, 2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implement hook_theme
+ */
+function amo_news_theme() {
+  return array(
+    'amo_news_list' => array(
+      'template' => 'amo-news-list',
+      'variables' => array(
+        'news' => NULL,
+        'filter' => NULL,
+        'prev_col' => NULL,
+        'next_col' => NULL,
+      ),
+    ),
+    'amo_news_social' => array(
+      'template' => 'amo-news-social',
+      'variables' => array(
+        'filter' => NULL,
+        'prev_col' => NULL,
+        'next_col' => NULL,
+      ),
+    )
+  );
+}
+
+/**
+ * Page callback News
+ */
+function amo_news_page($type = NULL, $tid = NULL) {
+  $taxo = taxonomy_vocabulary_machine_name_load('news_category');
+  $taxo = taxonomy_get_tree($taxo->vid);
+
+  foreach($taxo as $term) {
+    $filter_menu[$term->tid] = array(
+      'link' => url('actualites/site/' . $term->tid),
+      'label' => $term->name,
+      'active' => FALSE,
+    );
+  }
+
+  if(!empty($tid) && !empty($filter_menu[$tid])) {
+    $filter_menu[$tid]['active'] = TRUE;
+  }
+  else {
+    $key = key($filter_menu);
+    $filter_menu[$key]['active'] = TRUE;
+  }
+
+  if(empty($type) || $type == 'site') {
+    $news = amo_news_get($tid);
+    $news = node_load_multiple($news);
+    if(!empty($news)) {
+      $news = node_view_multiple($news);
+    }
+
+    $output = array(
+      '#theme' => 'amo_news_list',
+      '#news' => $news,
+      '#filter' => $filter_menu,
+    );
+  }
+  else {
+    $output = array(
+      '#theme' => 'amo_news_social',
+      '#filter' => $filter_menu,
+    );
+  }
+
+  $output['#prev_col'] = amo_navigation_get_next_type('news', TRUE);
+  $output['#next_col'] = amo_navigation_get_next_type('news');
+
+  $output['field_background_image'][0]['#item']['uri'] = file_create_url(drupal_get_path('theme', 'amo') . '/dist/img/bg/news-bg.jpg');
+
+  return $output;
+}
+
+function amo_news_get($tid = NULL) {
+  $language = 'fr';
+  if(!empty($_SESSION['language'])) {
+    $language = $_SESSION['language'];
+  }
+
+  $query = db_select('node', 'n');
+  $query->addField('n', 'nid');
+  $query->condition('n.type', 'news');
+  $or = db_or();
+  $or->condition('n.language', $language);
+  $or->condition('n.language', 'und');
+  if($tid) {
+    $query->join('field_data_field_news_category', 'cat', 'cat.entity_id = n.nid');
+    $query->condition('cat.field_news_category_tid', $tid);
+  }
+  $query->orderBy('changed', 'DESC');
+  $nids = $query->execute()->fetchCol();
+
+  return $nids;
+}

@@ -1,0 +1,21 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+node_modules/
+
+# Thumbnails
+._*
+
+npm-debug.log
+
+*.map
+*/*.map
+
+src/bower/jquery
+*/src/bower/jquery
+
+
+# Eclipse
+.settings
+.buildpath
+.project

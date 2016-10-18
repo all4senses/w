@@ -1,0 +1,7 @@
+name = Contact form
+description = -
+core = 7.x
+package = AMO
+
+;contrib
+dependencies[] = webform

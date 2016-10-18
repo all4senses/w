@@ -1,0 +1,43 @@
+
+h1 = 32px
+h2 = 24px
+h3 = 18px
+h4 = 16px
+
+for i in 1..4
+  h{i}
+    {R}
+    ff font-title
+    fz lookup('h' + i)
+    fw inherit
+    c color-title
+    margin 0
+    a
+      c inherit
+      fw inherit
+      fz inherit
+
+.title
+  float left
+  margin-top 4.5vh
+  font-family font-title
+  font-weight 200
+  font-size 90px
+  margin-bottom 70px
+  color #FFF
+  
+  .mobile &
+    font-size 36px
+    margin-bottom 30px
+
+h1,
+.h1-title
+  //
+
+h2,
+.h2-title
+  //
+
+h3,
+.h3-title
+  //

@@ -1,0 +1,106 @@
+::selection
+  c #0 #f
+  text-shadow none
+
+html
+  box-sizing border-box
+  fz 10
+  height 100%
+
+  wrapper-resp = 1475px
+  fs-resp      = 10px
+
+  for i in (1..80)
+
+    wrapper-resp = wrapper-resp - 7.5px
+    fs-resp      = fs-resp      - 0.06px
+
+    @media (max-width round(wrapper-resp, 1))
+      fz round(fs-resp, 1)
+
+  &.smaller
+    wrapper-resp2 = 1400px
+    fs-resp2      = 9.1px
+
+    for i in (1..80)
+
+      wrapper-resp2 = wrapper-resp2 - 7.5px
+      fs-resp2      = fs-resp2      - 0.06px
+
+      @media (max-width round(wrapper-resp2, 1))
+        fz round(fs-resp2, 1)
+
+
+  &.mobile
+    fz 10 !important
+
+
+body
+  margin 0
+  c color-text #0
+  ff font
+  fw 400
+  fz 16px 1
+  height 100%
+  overflow hidden
+  .mobile &
+    overflow auto
+    width 320px
+
+#page
+  height 100%
+
+#content
+  height 100%
+  overflow hidden
+  .mobile &
+    width 320px
+
+.wrapper
+  wrapper 1370px
+  .mobile &
+    wrapper 320px
+
+a
+  transition-duration .3s
+  transition-property opacity, color, background-color
+  cursor pointer
+  outline 0
+  c color-link
+  text-decoration none
+  &:hover
+    c color-link-hover
+
+/* iPhones automatically transform telephone number into callable links.
+   To prevent this feature a metatag can be set in the page header :
+    <meta name="format-detection" content="telephone=no">
+    ref. https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+ */
+a[href^="tel"]
+  c color-link
+
+
+img
+  max-width 100%
+  height auto
+
+sup
+  relative top -.5em right
+  font-size 75%
+  line-height 0
+  vertical-align baseline
+
+.page-title
+  color #f
+
+.breadcrumb,
+.visually-hidden
+  display none
+
+
+
+#admin-menu
+  z-index 999999 !important
+
+.ajax-link-nav
+  text-shadow 1px 1px 14px rgba(0, 0, 0, 0.98)

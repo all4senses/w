@@ -1,0 +1,423 @@
+<?php
+
+
+/**
+ * @file
+* Defines abstract base test class for the GD module tests.
+*/
+
+/**
+ * Abstract class for GD testing. All GD tests should extend this
+* class.
+*/
+abstract class GDBaseTestCase extends SimpleTestCloneTestCase {
+  protected $public_files_directory = 'sites/default/files/public';
+
+  /**
+   * Smoke testing :
+   * Some smoke into the pipe to see if they are some leaks.
+   *
+   * Do we get a 200 ?, do we have a correct html produced ?..
+   *
+   * Helper function to get the different site path,
+   * (defined in hook menu, not for contributed content).
+   */
+  protected function sitePaths() {
+    return array(
+      '<front>',
+    );
+  }
+  /**
+   * Node type used as full pages.
+   */
+  protected function nodeTypes() {
+    return array(
+
+    );
+  }
+
+  /**
+   * Init each test.
+   * @see SimpleTestCloneTestCase::setUp()
+   */
+  public function setUp() {
+    global $language;
+
+    parent::setUp(array('gd_core'));
+    $languages = language_list();
+    $language = $languages['fr'];
+  }
+
+  /**
+   * Helper function to get different combinations of permission sets.
+   *
+   * @param $set
+   *  Can be a single string (from the following) or can be an array containing
+   *  multiple values that should be merged:
+   *    'site admin': Admin permissions for Drupal core modules
+   *    '... admin': ...
+   */
+  protected function permissionBuilder($sets) {
+    if (is_string($sets)) {
+      $sets = array($sets);
+    }
+    $site_admin = array(
+      'administer blocks',
+      'administer filters',
+      'administer image styles',
+      'administer menu',
+      'administer content types',
+      'administer nodes',
+      'bypass node access',
+      'administer url aliases',
+      'administer search',
+      'administer modules',
+      'administer site configuration',
+      'administer themes',
+      'administer software updates',
+      'administer actions',
+      'access administration pages',
+      'access site in maintenance mode',
+      'access site reports',
+      'block IP addresses',
+      'administer taxonomy',
+      'administer permissions',
+      'administer users',
+
+      'access administration menu',
+    );
+
+    $final_permissions = array();
+
+    foreach ($sets as $set) {
+      switch ($set) {
+        case 'site admin':
+          $final_permissions = array_unique(array_merge($final_permissions, $site_admin));
+          break;
+      }
+    }
+
+    return $final_permissions;
+  }
+
+  /**
+   * Wrapper to easily create users from arrays returned by permissionBuilder().
+   *
+   * @param $set
+   *  See permissionBuilder() function
+   * @return
+   *  A user with the permissions returned from permissionBuilder().
+   */
+  protected function createUserWithPermissionHelper($set) {
+    $permissions = $this->permissionBuilder($set);
+    $user = $this->drupalCreateUser($permissions);
+    $user->language = 'fr';
+    user_save($user);
+    return $user;
+  }
+
+  /**
+   * Create a user with a given set of roles.
+   *
+   * @param array $roles
+   *   Array of roles : rid => rid
+   *
+   * @return object|false
+   *   A fully loaded user object with pass_raw property, or FALSE if account
+   *   creation fails.
+   */
+  protected function drupalCreateUserWithRoles(array $roles = array()) {
+    // Create a user assigned to that role.
+    $edit = array();
+    $edit['name']   = $this->randomName();
+    $edit['mail']   = $edit['name'] . '@example.com';
+    $edit['pass']   = user_password();
+    $edit['status'] = 1;
+    if (!empty($roles)) {
+      $edit['roles'] = $roles;
+    }
+
+    $account = user_save(drupal_anonymous_user(), $edit);
+
+    $this->assertTrue(!empty($account->uid), t('User created with name %name and pass %pass', array('%name' => $edit['name'], '%pass' => $edit['pass'])), t('User login'));
+    if (empty($account->uid)) {
+      return FALSE;
+    }
+
+    // Add the raw password so that we can log in as this user.
+    $account->pass_raw = $edit['pass'];
+    return $account;
+  }
+
+  /**
+   * Returns a site administrator user. Only has permissions for administering
+   * modules in Drupal core.
+   */
+  protected function createSiteAdmin() {
+    return $this->createUserWithPermissionHelper('site admin');
+  }
+
+  // =============== Helper functions ===============
+
+  /**
+   * Checks if a group of modules is enabled.
+   *
+   * @param $module_name
+   *  Array of module names to check (without the .module extension)
+   * @return
+   *  TRUE if all of the modules are enabled.
+   */
+  protected function modulesUp($module_names) {
+    if (is_string($module_names)) {
+      $module_names = array($module_names);
+    }
+    foreach ($module_names as $module_name) {
+      if (!module_exists($module_name)) {
+        return FALSE;
+      }
+    }
+    return TRUE;
+  }
+
+  /**
+   * Generate a random valid email
+   *
+   * @param string $type
+   *  Domain type
+   *
+   * @return string
+   *  Valid email
+   */
+  protected function generateEmail($type = 'com') {
+    return $this->randomName() . '@' . $this->randomName() . '.' . $type;
+  }
+
+  /**
+   * Test if a meta balise with a defined property and value exists.
+   * @param string $property
+   * @param string $value
+   * @param string $message
+   * @param string $group
+   */
+  protected function assertMetaExists($property = 'name', $value = 'description', $message = NULL, $group = NULL) {
+    $exists = FALSE;
+    if (strpos($this->drupalGetContent(), '<meta ') && $this->parse()) {
+      $meta = $this->xpath('//meta[@' . $property . '="' . $value . '"]');
+      if (!empty($meta)) {
+        $exists = TRUE;
+      }
+    }
+    $this->assertTrue($exists, $message, $group);
+  }
+
+  /**
+   * Test if a DOM element exists.
+   * @param string $dom_element
+   * @param string $message
+   * @param string $group
+   */
+  protected function assertDOMElementExists($dom_element = 'title', $message = NULL, $group = NULL) {
+    $exists = FALSE;
+    if (strpos($this->drupalGetContent(), '<' . $dom_element . '>') && $this->parse()) {
+      $exists = TRUE;
+    }
+    $this->assertTrue($exists, $message, $group);
+  }
+
+  protected function themeExists($theme_name) {
+    $themes = list_themes();
+    return isset($themes[$theme_name]) && $themes[$theme_name]->status == 1;
+  }
+
+  /**
+   * Log in a user with the internal browser.
+   *
+   * If a user is already logged in, then the current user is logged out before
+   * logging in the specified user.
+   *
+   * Please note that neither the global $user nor the passed-in user object is
+   * populated with data of the logged in user. If you need full access to the
+   * user object after logging in, it must be updated manually. If you also need
+   * access to the plain-text password of the user (set by drupalCreateUser()),
+   * e.g. to log in the same user again, then it must be re-assigned manually.
+   * For example:
+   * @code
+   *   // Create a user.
+   *   $account = $this->drupalCreateUser(array());
+   *   $this->drupalLogin($account);
+   *   // Load real user object.
+   *   $pass_raw = $account->pass_raw;
+   *   $account = user_load($account->uid);
+   *   $account->pass_raw = $pass_raw;
+   * @endcode
+   *
+   * @param $account
+   *   User object representing the user to log in.
+   *
+   * @see drupalCreateUser()
+   */
+  protected function drupalLogin(stdClass $account) {
+    if ($this->loggedInUser) {
+      $this->drupalLogout();
+    }
+
+    $edit = array(
+      'name' => $account->name,
+      'pass' => $account->pass_raw
+    );
+    $this->drupalPost('user', $edit, t('Log in'));
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertLink(t('Log out'), 0, t('User %name successfully logged in.', array('%name' => $account->name)), t('User login'));
+
+    if ($pass) {
+      $this->loggedInUser = $account;
+    }
+  }
+
+}
+
+
+/**
+ * Ensure that the site has been installed properly.
+ */
+class GDSetUpTestCase extends GDBaseTestCase {
+  protected $site_admin;
+  protected $profile = 'generali_profil';
+
+  public static function getInfo() {
+    // Note: getInfo() strings are not translated with t().
+    return array(
+      'name' => 'GD Setup Test',
+      'description' => 'Ensure that the site has been installed properly.',
+      'group' => 'GD',
+    );
+  }
+
+  /**
+   * setUp() performs any pre-requisite tasks that need to happen.
+   * Called once for each testCase.
+   */
+  public function setUp() {
+    parent::setUp(array('gd_core'));
+
+    $this->site_admin = $this->createSiteAdmin();
+    cache_clear_all(); // Just in case
+  }
+
+  /**
+   * Scan the template files of the project and check if they're not duplicated
+   * @param $theme_default
+   *  The default theme to test
+   */
+  public function noDuplicateTemplateFilename($theme) {
+   $template_files = file_scan_directory(drupal_realpath('sites/all/themes/' . $theme), '/^.*\.tpl\.php/');
+
+    $template_filenames = array();
+    foreach($template_files as $tpl) {
+      $template_filenames[$tpl->uri] = $tpl->filename;
+    }
+
+    foreach($template_filenames as $key => $tpl) {
+      unset($template_filenames[$key]);
+      $this->assertFalse(in_array($tpl, $template_filenames), 'The template ' . $key . ' is not duplicated in the project');
+    }
+  }
+
+  /**
+   * Scan the module files of the project and check if they're not duplicated
+   * @param $theme_default
+   *  The default theme to test
+   */
+  public function noDuplicateModuleFilename() {
+    $module_files = file_scan_directory(drupal_realpath('sites/all/modules'), '/^.*\.module/', array('nomask' => '/^coder$/'));
+
+    $module_filenames = array();
+    foreach($module_files as $m_file) {
+      $module_filenames[$m_file->uri] = $m_file->filename;
+    }
+
+    foreach($module_filenames as $key => $filename) {
+      unset($module_filenames[$key]);
+      $this->assertFalse(in_array($filename, $module_filenames), 'The module ' . $key . ' is not duplicated in the project');
+    }
+  }
+
+  /*
+   * Tests:
+   *
+   * Test case function need to begin by "test"
+   * to be called by simpletest as a testCase
+   */
+
+  /**
+   * Test aggregation is enabled
+   */
+  public function testGDAggregationIsEnabled() {
+    $this->drupalLogin($this->site_admin);
+
+    $this->drupalGet('admin/config/development/performance');
+
+    $this->assertResponse('200', 'Access to admin/config/development/performance');
+
+    // This will break if agggregation is not enabled.
+    $this->assertFieldChecked('edit-preprocess-css', 'Do not forget to activate CSS agreggation.');
+    $this->assertFieldChecked('edit-preprocess-js', 'Do not forget to activate JS agreggation.');
+  }
+
+  /**
+   * Test if gd theme is set up properly.
+   */
+  public function testGDThemeIsSetUp() {
+    $this->assertTrue($this->modulesUp(array('gd_core')), 'gd_core is enabled.', 'theme');
+    $this->assertTrue($this->modulesUp(array('gd_theme')), 'gd_theme is enabled.', 'theme');
+    $theme_default = variable_get('theme_default');
+    $this->assertNotNull($theme_default, 'A default theme is setup.', 'theme');
+    if ($theme_default) {
+      $this->assertNotEqual($theme_default, 'bartik', 'The bartik theme is not the default theme.', 'theme');
+      $this->assertNotEqual($theme_default, 'gd', 'The gd default theme has been renamed.', 'theme');
+      if ($theme_default != 'bartik' &&
+          $theme_default != 'gd') {
+        $this->assertTrue($this->themeExists('zen'), 'The default base theme (zen) is enabled and active.', 'theme');
+        $this->assertTrue($this->themeExists($theme_default), 'The default theme is enabled and active.', 'theme');
+      }
+
+      $this->noDuplicateTemplateFilename($theme_default);
+    }
+
+    $this->noDuplicateModuleFilename();
+  }
+
+  /**
+   * Test Basic SEO is enabled and meta, title are present.
+   */
+  public function testGDSEOIsEnabled() {
+    $site_paths = $this->sitePaths();
+    foreach ($this->nodeTypes() as $type) {
+      $nid = db_query('SELECT nid FROM {node} WHERE status = 1 AND type = :type ORDER BY nid DESC LIMIT 0,1', array(':type' => $type))->fetchField();
+      if ($nid) {
+        $url = url('node/' . $nid);
+        $this->assertTrue((strpos($url, 'node/') === FALSE), 'Url of node : ' . $type . ', have an automatic alias.');
+        $site_paths[] = 'node/' . $nid;
+      }
+    }
+    // Test defined pages in hook menu.
+    foreach ($site_paths as $site_path) {
+      $this->drupalGet($site_path);
+
+      $this->assertResponse('200', 'Access to ' . $site_path . ' successful');
+      $this->assertNoDuplicateIds('No duplicate html ID for ' . $site_path, 'seo');
+      //$this->assertMetaExists('name', 'description', 'Meta description found on ' . $site_path, 'seo');
+      $this->assertDOMElementExists('title', 'DOM Element title found on ' . $site_path, 'seo');
+    }
+
+    $seo_modules = array(
+      'xmlsitemap',
+      'pathauto',
+      'metatag',
+    );
+    $this->assertTrue($this->modulesUp($seo_modules), 'The seo modules are enabled : ' . implode(', ', $seo_modules), 'seo');
+  }
+
+}

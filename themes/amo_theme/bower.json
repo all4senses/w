@@ -1,0 +1,76 @@
+{
+  "name": "gd",
+  "version": "1.0.0",
+  "homepage": "http://studio.gd",
+  "authors": [
+    "Studio.gd <contact@studio.gd>"
+  ],
+  "license": "0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/js-bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery.resizeend": "^0.2.1",
+    "slick-carousel": "^1.6.0",
+    "iCheck": "^1.0.2",
+    "select2": "~4.0.3",
+    "gmaps": "^0.4.24",
+    "animatescroll": "^1.0.7",
+    "jquery-throttle-debounce": "*",
+    "jquery-mousewheel": "^3.1.13",
+    "featherlight": "~1.5.0"
+  },
+  "overrides": {
+    "jquery": {
+      "ignore": true
+    },
+    "slick-carousel": {
+      "main": [
+        "slick/slick.min.js",
+        "slick/slick.css"
+      ]
+    },
+    "animatescroll": {
+      "main": "animatescroll.js"
+    },
+    "jquery-throttle-debounce": {
+      "main": "jquery.ba-throttle-debounce.js"
+    },
+    "jquery.viewport": {
+      "main": "index.js"
+    },
+    "chosen": {
+      "main": [
+        "chosen.jquery.min.js",
+        "chosen.min.css"
+      ]
+    },
+    "pikaday": {
+      "main": [
+        "./pikaday.js",
+        "./plugins/pikaday.jquery.js",
+        "./css/pikaday.css"
+      ]
+    },
+    "select2": {
+      "main": [
+        "dist/js/select2.js",
+        "dist/css/select2.min.css"
+      ]
+    },
+    "featherlight": {
+      "main": [
+        "release/featherlight.min.js",
+        "release/featherlight.min.css",
+        "release/featherlight.gallery.min.js",
+        "release/featherlight.gallery.min.css"
+      ]
+    }
+  }
+}

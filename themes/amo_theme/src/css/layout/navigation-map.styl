@@ -1,0 +1,23 @@
+.nav-map
+  fixed bottom 25 left 30 zi 1100
+  .line
+    float left
+    clear both
+    font-size 0
+    white-space nowrap
+  .col
+    display inline-block
+    size 12
+    margin 1.5px
+    a
+      float left
+      size 12
+      bgc #f
+      &.active,
+      &:hover
+        bgc color-wine
+
+  .mobile &,
+  .ajax-wrapper.page-homepage &
+    display none
+

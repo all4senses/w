@@ -1,0 +1,36 @@
+.product-choice
+  relative z 999
+  .col
+    position relative
+    height 100vh
+    background-size cover !important
+    .ajax-link
+      absolute full
+      {tr}
+  .col-castle
+    jpg 'product/bg-castle' center top
+    .ajax-link
+      png 'product/choice-castle' center top 107
+      &:hover
+        background-position center top 90
+  .col-land
+    jpg 'product/bg-terres' center top
+    .ajax-link
+      png 'product/choice-terre' center top 190
+      &:hover
+       background-position center top 203
+  
+
+  .mobile &
+    .col
+      size 100% 50vh
+    .col-castle
+      .ajax-link
+        png 'product/choice-castle-mobile' center center
+        &:hover
+          background-position center center
+    .col-land
+      .ajax-link
+        png 'product/choice-terre-mobile' center center
+        &:hover
+         background-position center center

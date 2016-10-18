@@ -1,0 +1,55 @@
+.ajax-link
+  &-nav
+    height 88px
+    line-height 88px
+    text-transform uppercase
+    color #f
+    letter-spacing 2px
+    z-index 999
+    &::after
+      content ''
+      display inline-block
+      vertical-align middle
+    &:hover
+      color #f
+  &-right
+    absolute top center right 1%
+    &::after
+      png-size 'picto/arrow-next'
+  &-left
+    absolute top center left 1%
+    line-height 80px
+    &::after
+      float left
+      png-size 'picto/arrow-prev'
+  &.loading
+    &::after
+      content ''
+      svg 'picto/default' center center
+      background-size 35px
+
+  .mobile &
+    &-nav
+      size 42 60
+      text-indent -9999em
+      bgc rgba(#000, 0.6)
+      &::after
+        float right
+        margin -30px
+        size @size
+        margin 0
+    &-right
+      fixed top center right
+      &::after
+        png 'picto/arrow-next-mobile' center center
+    &-left
+      fixed top center left
+      &::after
+        png 'picto/arrow-prev-mobile' center center
+    &-top
+      fixed top -12 left 160 z 99999
+      transform translateX(-50%) rotate(90deg)
+
+      &::after
+        float left
+        png 'picto/arrow-prev-mobile' center center

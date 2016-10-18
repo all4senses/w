@@ -1,0 +1,70 @@
+<?php
+/**
+ * @file
+ * Code for the [AMO] Spirit feature.
+ */
+
+include_once 'amo_ct_spirit.features.inc';
+
+/**
+ * Implements hook_menu
+ */
+function amo_ct_spirit_menu() {
+  $items['l-esprit'] = array(
+    'title' => 'The spirit',
+    'page callback' => 'amo_ct_spirit_main_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['wine-boutique'] =array(
+    'title' => 'Wine store',
+    'page callback' => 'amo_ct_spirit_wine_store_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/content/wine-boutique'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('amo_ct_spirit_admin_wine_store_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'amo_ct_spirit.admin.inc',
+    'file path' => drupal_get_path('module', 'amo_ct_spirit') . '/includes',
+  );
+
+  return $items;
+}
+
+/**
+ * Callback for the main page of the section spirit
+ */
+function amo_ct_spirit_main_page() {
+  $main_spirit = amo_navigation_get_next('spirit');
+
+  if(!empty($main_spirit)) {
+    $main_spirit = node_view($main_spirit);
+  }
+
+  return $main_spirit;
+}
+
+/**
+ * Callback for the main page of the section spirit
+ */
+function amo_ct_spirit_wine_store_page() {
+  $language = 'fr';
+  if(!empty($_SESSION['language'])) {
+    $language = $_SESSION['language'];
+  }
+
+  $nid = variable_get('amo_wine_store_' . $language, NULL);
+
+  $wine_store = node_load($nid);
+
+  if(!empty($wine_store)) {
+    $wine_store = node_view($wine_store, 'wine_store');
+  }
+
+  return $wine_store;
+}
