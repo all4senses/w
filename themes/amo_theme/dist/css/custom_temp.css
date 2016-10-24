@@ -4,7 +4,7 @@
 /*.page-boutique, #content {overflow: auto;}*/
 
 .ajax-wrapper .wrapper-content {
-    overflow: scroll;
+    overflow-y: auto;
     height: 100%;
 }
 
@@ -99,6 +99,7 @@ display: inline-block;
     top: 0;
     left: 0;
     opacity: 0.8;
+    padding: 20px;
 }
 
 .product.teaser:hover .product-teaser-hover {
@@ -106,6 +107,15 @@ display: inline-block;
    
 }
 
-.product-teaser-hover h1 {
+.product-teaser-hover h1, .product-teaser-hover .price-product {
     color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.product-teaser-hover .text {
+    margin-top: 35px;
+}
+
+.product-teaser-hover p {
+    font-size: 13px;
 }
