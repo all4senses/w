@@ -118,4 +118,5 @@ display: inline-block;
 
 .product-teaser-hover .text, .product-teaser-hover p {
     font-size: 13px;
+    line-height: 1.5;
 }

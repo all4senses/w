@@ -21,6 +21,71 @@
     <div class="text">
       <?php print render($body['und'][0]['summary']); ?>
     </div>
+    
+    <div class="add-to-cart-wrapper">
+        <a class="R add-to-cart" href="#">
+            <?php print t("Add to Cart"); ?>
+        </a>
+        <div class="add-to-cart-form-wrapper">
+            
+            <?php
+            
+                $nv = node_view($node, 'full', NULL);
+                if(isset($nv['field_product_product'])){
+                  $out = '';
+                  foreach($nv['field_product_product']['#items'] as $item) {
+                    $qty = 1;
+                    $form_idp= commerce_cart_add_to_cart_form_id(array($item['product_id']));  
+                    $productp = commerce_product_load($item['product_id']);
+                    if(property_exists($productp,'field_min_qty')){$qty = $productp->field_min_qty['und'][0]['value'];}
+                    $line_itemp = commerce_product_line_item_new($productp, $qty);  
+                    $line_itemp->data['context']['product_ids'] = array($item['product_id']);
+                    $formp = drupal_get_form($form_idp, $line_itemp, TRUE, array());
+                    $qty_field = array(
+                        '#type' => 'hidden',
+                        '#value' => $qty,
+                        '#parents' => array
+                          (
+                            '0' => 'qty_step',
+                          ),
+                        '#input' => '1',
+                        '#process' => array(
+                            '0' => 'ajax_process_form',
+                          ),
+                        '#theme' => 'hidden',
+                        '#defaults_loaded' => '1',
+                        '#tree' => '',
+                        '#array_parents' => array(
+                            '0' => 'qty_step',
+                          ),
+                        '#weight' => '0.008',
+                        '#processed' => '1',
+                        '#required' => '',
+                        '#attributes' => array(
+                          ),
+                        '#title_display' => 'before',
+                        '#name' => 'qty_step',
+                        '#sorted' => '1'
+                      );
+                    $formp['qty_step'] = $qty_field;
+                    $price = '';
+                    if(isset($productp->commerce_price['und'][0]['original'])){
+                      $price = $productp->commerce_price['und'][0]['original']['amount']/100;
+                    }
+                    else {
+                      $price = $productp->commerce_price['und'][0]['amount']/100;
+                    }
+                    $out .= '<div class="add_to_cart_button_item">'.drupal_render($formp);   // renders add to cart for product id of 7
+                    $out .= $productp->title.' ('. $price .' &euro;) X '  ;
+                    $out .= '</div>';
+                  }
+                  print $out;
+                }
+            ?>
+        </div>
+    </div>
+    
+    
   </div>
 </div>
 
