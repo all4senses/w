@@ -1,6 +1,26 @@
+.messages {
+    margin-top: 40px;
+}
+/*.page-boutique, #content {overflow: auto;}*/
+
+.ajax-wrapper .wrapper-content {
+    overflow: scroll;
+    height: 100%;
+}
+
+.product.teaser {
+    position: relative;
+    height: 92rem;
+    width: 40rem;
+    margin-bottom: 3rem;
+}
 .product-teaser-hover {
     background: gray;
     width: 100%;
     height: 100%;
     display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
 }
