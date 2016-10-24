@@ -19,7 +19,7 @@
     </h1>
     <span class="price-product"><?php print $node->field_product_price['und'][0]['value']; ?></span>
     <div class="text">
-      <?php print render($body[0]['summary']) . 'dfjsldkfj skl;jd ;sldkjf ;sdlkjf ;klhgdfjghdkjh jshdvfjshgfakg jahsgdkasjhd g'; ?>
+      <?php print render($body['und'][0]['summary']); ?>
     </div>
   </div>
 </div>
