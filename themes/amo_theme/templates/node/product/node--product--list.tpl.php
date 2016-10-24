@@ -1,4 +1,5 @@
-<div class="product teaser"><?php  // dpm($node); ?>
+<div class="product teaser" id="nid-<?php echo $node->nid; ?>">
+  <?php   dpm($node); ?>
   <?php   
   $path = drupal_get_path('theme', 'amo_theme');
   $link_img = $node->field_product_image['und'][0]['uri'];
@@ -10,7 +11,9 @@
   <div class="text">
     <?php print render($body[0]['summary']); ?>
   </div>
-
+  <div class="product-teaser-hover">
+      
+  </div>
 </div>
 
 <style>
