@@ -22,11 +22,9 @@
       <?php print render($body['und'][0]['summary']); ?>
     </div>
     
-    <div class="add-to-cart-wrapper">
-        <a class="R add-to-cart" href="#">
-            <?php print t("Add to Cart"); ?>
-        </a>
-        <div class="add-to-cart-form-wrapper">
+    <div class="add-to-cart-wrapper-2">
+
+        <div class="add-to-cart-form-wrapper-2">
             
             <?php
             
@@ -76,7 +74,17 @@
                       $price = $productp->commerce_price['und'][0]['amount']/100;
                     }
                     $out .= '<div class="add_to_cart_button_item">'.drupal_render($formp);   // renders add to cart for product id of 7
-                    $out .= $productp->title.' ('. $price .' &euro;) X '  ;
+                    //$out .= $productp->title.' ('. $price .' &euro;) X '  ;
+                    $item_title = $productp->title;
+                    
+                    if (stripos($productp->title, 'Magnum') !== FALSE) {
+                      $item_title = t('MAGNUM') . t('(1,5 l)');
+                    }
+                    elseif (stripos($productp->title, 'Bottle') !== FALSE) {
+                      $item_title = t('BOTTLE') . t('(75 cl)');
+                    }
+                    
+                    $out .= $item_title;
                     $out .= '</div>';
                   }
                   print $out;
