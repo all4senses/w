@@ -5,14 +5,22 @@
   $link_img = $node->field_product_image['und'][0]['uri'];
   print "<img src=". image_style_url('product-list',  $link_img) . " />"; ?>
   <h1 class="product-title">
-    <?php print $title; ?>
+    <?php 
+      //print $title; 
+      print l($title, 'node/' . $node->nid); 
+    ?>
   </h1>
   <span class="price-product"><?php print $node->field_product_price['und'][0]['value']; ?></span>
-  <div class="text">
-    <?php print render($body[0]['summary']); ?>
-  </div>
+ 
+  
   <div class="product-teaser-hover">
-      
+    <h1 class="product-title">
+      <?php print $title; ?>
+    </h1>
+    <span class="price-product"><?php print $node->field_product_price['und'][0]['value']; ?></span>
+    <div class="text">
+      <?php print render($body[0]['summary']) . 'dfjsldkfj skl;jd ;sldkjf ;sdlkjf ;klhgdfjghdkjh jshdvfjshgfakg jahsgdkasjhd g'; ?>
+    </div>
   </div>
 </div>
 
