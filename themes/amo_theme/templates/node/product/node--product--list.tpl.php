@@ -22,9 +22,9 @@
       <?php print render($body['und'][0]['summary']); ?>
     </div>
     
-    <div class="add-to-cart-wrapper-2">
+    <div class="add-to-cart-wrapper-list">
 
-        <div class="add-to-cart-form-wrapper-2">
+        <div class="add-to-cart-form-wrapper-list">
             
             <?php
             
@@ -78,13 +78,13 @@
                     $item_title = $productp->title;
                     
                     if (stripos($productp->title, 'Magnum') !== FALSE) {
-                      $item_title = t('MAGNUM') . t('(1,5 l)');
+                      $item_title = t('MAGNUM') . t(' (1,5 l)');
                     }
                     elseif (stripos($productp->title, 'Bottle') !== FALSE) {
-                      $item_title = t('BOTTLE') . t('(75 cl)');
+                      $item_title = t('BOTTLE') . t(' (75 cl)');
                     }
                     
-                    $out .= $item_title;
+                    $out .= '<div class="item-title">' . $item_title . '</div>';
                     $out .= '</div>';
                   }
                   print $out;

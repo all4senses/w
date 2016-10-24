@@ -86,7 +86,7 @@ display: inline-block;
 .product.teaser {
     position: relative;
     height: 92rem;
-    width: 90rem;/*40rem;*/
+    width: 40rem;
     margin-bottom: 3rem;
 }
 .product-teaser-hover {
@@ -119,4 +119,12 @@ display: inline-block;
 .product-teaser-hover .text, .product-teaser-hover p {
     font-size: 13px;
     line-height: 1.5;
+}
+
+.add-to-cart-wrapper-list .add_to_cart_button_item {
+    background: none;
+}
+
+.add-to-cart-wrapper-list .item-title {
+    color: white;
 }
