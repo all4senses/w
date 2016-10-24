@@ -91,6 +91,7 @@ display: inline-block;
 }
 .product-teaser-hover {
     background: gray;
+    color: white;
     width: 100%;
     height: 100%;
     display: none;
@@ -102,4 +103,9 @@ display: inline-block;
 
 .product.teaser:hover .product-teaser-hover {
     display: block;
+   
+}
+
+.product-teaser-hover h1 {
+    color: white;
 }
