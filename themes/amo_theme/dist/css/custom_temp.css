@@ -110,12 +110,12 @@ display: inline-block;
 .product-teaser-hover h1, .product-teaser-hover .price-product {
     color: white;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 15px !important;
 }
 .product-teaser-hover .text {
     margin-top: 35px;
 }
 
-.product-teaser-hover p {
+.product-teaser-hover .text, .product-teaser-hover p {
     font-size: 13px;
 }
