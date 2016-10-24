@@ -16,6 +16,7 @@
   </div>
 </div>
 
+<!--
 <style>
 
  .product-list .title {
@@ -87,3 +88,4 @@ display: inline-block;
 } 
  
 </style>
+-->
