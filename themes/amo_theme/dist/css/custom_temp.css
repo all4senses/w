@@ -1,9 +1,9 @@
-.messages {
+.page-boutique .messages {
     margin-top: 40px;
 }
 /*.page-boutique, #content {overflow: auto;}*/
 
-.ajax-wrapper .wrapper-content {
+.page-boutique .ajax-wrapper .wrapper-content {
     overflow-y: auto;
     height: 100%;
 }
@@ -11,7 +11,7 @@
 
 /* Hardcoded Style block removed from product template */
 
- .product-list .title {
+.page-boutique .product-list .title {
   color:#000;
   float: left;
   margin: 5.5vh 0 5rem 0;
@@ -21,18 +21,18 @@
   
  }
  
- .product-title {
+.page-boutique .product-title {
    font-size: 1.8rem;
    display:block;
    padding:0.5rem 0;
  }
- 
- .product.teaser .price-product{	 
+
+.page-boutique .product.teaser .price-product{	 
    font-size: 1.8rem;
    display:block;
  } 
  
- .product.teaser
+.page-boutique .product.teaser
 {
 display: inline-block;
   width: 31rem;
@@ -46,19 +46,19 @@ display: inline-block;
   
 }
 
-.product-list .product-list-wrapper .product-list-content
+.page-boutique .product-list .product-list-wrapper .product-list-content
 {
   width: 100%;
   position: relative;
   margin:0 auto;
 } 
 
-.product-list
+.page-boutique .product-list
 {
   height: 100vh;
 }
  
- .black-link:hover, .black-link
+.page-boutique .black-link:hover, .black-link
 {
   color: #000 !important;
   text-shadow:none;
@@ -83,13 +83,13 @@ display: inline-block;
 
 
 
-.product.teaser {
+.page-boutique .product.teaser {
     position: relative;
     height: 92rem;
     width: 40rem;
     margin-bottom: 3rem;
 }
-.product-teaser-hover {
+.page-boutique .product-teaser-hover {
     background: gray;
     color: white;
     width: 100%;
@@ -102,12 +102,12 @@ display: inline-block;
     padding: 20px;
 }
 
-.product.teaser:hover .product-teaser-hover {
+.page-boutique .product.teaser:hover .product-teaser-hover {
     display: block;
    
 }
 
-.product-teaser-hover h1, .product-teaser-hover .price-product {
+.page-boutique .product-teaser-hover h1, .product-teaser-hover .price-product {
     color: white;
     font-weight: bold;
     font-size: 15px !important;
@@ -116,15 +116,15 @@ display: inline-block;
     margin-top: 35px;
 }
 
-.product-teaser-hover .text, .product-teaser-hover p {
+.page-boutique .product-teaser-hover .text, .product-teaser-hover p {
     font-size: 13px;
     line-height: 1.5;
 }
 
-.add-to-cart-wrapper-list .add_to_cart_button_item {
+.page-boutique .add-to-cart-wrapper-list .add_to_cart_button_item {
     background: none;
 }
 
-.add-to-cart-wrapper-list .item-title {
+.page-boutique .add-to-cart-wrapper-list .item-title {
     color: white;
 }
