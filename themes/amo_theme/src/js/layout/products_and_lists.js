@@ -29,7 +29,7 @@
         else {
             console.log('Hide some...');
             links.each(function(index) {
-                console.log(this.data('color'), 'link color...');
+                console.log($(this).data('color'), 'link color...');
             });  
         }
         
