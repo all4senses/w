@@ -14,6 +14,12 @@
 }
 
 
+
+
+
+
+
+
 /* Hardcoded Style block removed from product template */
 
 .page-boutique .product-list .title {
@@ -87,6 +93,7 @@ display: inline-block;
 
 
 
+/* New style for a product */
 
 .page-boutique .product.teaser {
     position: relative;
@@ -135,10 +142,18 @@ display: inline-block;
 }
 
 
+.page-boutique .product.teaser.hidden {
+    display: none;
+}
+
+
+/* Cart ? */
 .page-boutique .cart-summary-wrapper {
     position: absolute;
     z-index: 100;
 }
+
+
 
 
 #product-filter-boutique {

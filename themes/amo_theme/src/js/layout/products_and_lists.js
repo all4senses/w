@@ -29,12 +29,27 @@
         }
         else {
             console.log('Hide some...');
-            links.each(function(index) {
+            // First, hide inactive
+            links_inactive.each(function(index) {
                 if (color = $(this).data('color')) {
                     console.log(color, 'color');
+                    $('.page-boutique .product.teaser:not(.hidden)[data-color="' + color + '"]').addClass('hidden');
                 }
                 else if (chateau = $(this).data('chateau')) {
                     console.log(chateau, 'chateau');
+                    $('.page-boutique .product.teaser:not(.hidden)[data-chateau="' + chateau + '"]').addClass('hidden');
+                }
+                //console.log($(this).data('color'), 'link color...');
+            });  
+            // Second, show active
+            links_active.each(function(index) {
+                if (color = $(this).data('color')) {
+                    console.log(color, 'color');
+                     $('.page-boutique .product.teaser.hidden[data-color="' + color + '"]').removeClass('hidden');
+                }
+                else if (chateau = $(this).data('chateau')) {
+                    console.log(chateau, 'chateau');
+                    $('.page-boutique .product.teaser.hidden[data-chateau="' + chateau + '"]').removeClass('hidden');
                 }
                 //console.log($(this).data('color'), 'link color...');
             });  
