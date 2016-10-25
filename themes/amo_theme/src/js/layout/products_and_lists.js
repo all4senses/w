@@ -7,7 +7,8 @@
         var e = $(this);
         e.toggleClass('active');
         console.log(e, 'this');
-        
+        console.log(e.data('color'), 'color');
+        console.log(e.data('chateau'), 'chateau');
         update_products_view();
         
     });
