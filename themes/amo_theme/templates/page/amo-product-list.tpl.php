@@ -1,16 +1,3 @@
-<?php 
-$sort_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
-?>
-<div id="product-filter" class="desktop-only">
-  <?php foreach($sort_links as $tid => $sort_link) : ?>
-  <span class="prodfiltre-<?php print $tid; ?>">
-    <a href="#" data-color="<?php print $tid; ?>">
-      <span><span></span></span>
-      <?php print $sort_link; ?>
-    </a></span>
-  <?php endforeach; ?>
-</div>
-
 <div class="product-list">
 
   <div class="R mobile-title mobile-only">
@@ -22,6 +9,19 @@ $sort_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
  
 
   <div class="title desktop-only"><?php print t('Online Store'); ?></div>
+
+  <?php 
+  $sort_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
+  ?>
+  <div id="product-filter" class="desktop-only">
+    <?php foreach($sort_links as $tid => $sort_link) : ?>
+    <span class="prodfiltre-<?php print $tid; ?>">
+      <a href="#" data-color="<?php print $tid; ?>">
+        <span><span></span></span>
+        <?php print $sort_link; ?>
+      </a></span>
+    <?php endforeach; ?>
+  </div>
 
   <div class="product-list-wrapper scroll-mobile-to">
     <div class="wrapper">
