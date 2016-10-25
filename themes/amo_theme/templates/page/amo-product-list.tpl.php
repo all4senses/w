@@ -13,7 +13,8 @@
   <?php 
   
   $filter_links = array();
-  $vocabs = array('type_chateau', 'color');
+  //$vocabs = array('type_chateau', 'color');
+  $vocabs = array('type', 'color');
   foreach ($vocabs as $vocab_name) {
     $vocab = taxonomy_vocabulary_machine_name_load($vocab_name);
     if(!empty($vocab)) {
