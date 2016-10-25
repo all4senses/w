@@ -28,8 +28,8 @@
         }
         else {
             console.log('Hide some...');
-            links.each(function(link) {
-                console.log(link, 'link...');
+            links.each(function(index) {
+                console.log(this.data('color'), 'link color...');
             });  
         }
         
