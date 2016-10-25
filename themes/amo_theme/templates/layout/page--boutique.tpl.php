@@ -44,7 +44,7 @@
 <a href="<?php print ['#next_col']['link']; ?>"
    data-orientation="right"
    class="ajax-link ajax-link-nav ajax-link-right black-link">
-  <?php print ['#next_col']['label']; ?>
+  <?php print $output['#next_col']['label']; ?>
 </a>
 
     
