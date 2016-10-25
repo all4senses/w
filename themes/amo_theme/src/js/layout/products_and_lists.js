@@ -29,6 +29,9 @@
         else {
             console.log('Hide some...');
             links.each(function(index) {
+                if (!$(this).data('color')) {
+                    console.log('empty color');
+                }
                 console.log($(this).data('color'), 'link color...');
             });  
         }
