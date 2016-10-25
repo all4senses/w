@@ -15,7 +15,7 @@
 
     $style = empty($background_image) ? '' : ' style="background-image: url('.$background_image.');"';
     ?>
-    <div class="ajax-wrapper">
+    <div class="ajax-wrapper xyz">
       <div class="bg-wrapper"<?php print $style; ?>></div>
       <div class="wrapper wrapper-content">
 
