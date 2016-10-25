@@ -13,8 +13,11 @@
   <?php 
   
   $filter_links = array();
-  //$vocabs = array('type_chateau', 'color');
-  $vocabs = array('type', 'color');
+  $type_chateau = array('castle' => 'Chateau les amoureuses', 'land' => 'Terres des amoureuses');
+  foreach($type_chateau as $tid => $name) {
+    $filter_links[$tid] = array('vocabulary' => 'type_chateau', 'term_name' => $name);
+  }
+  $vocabs = array(/*'type_chateau',*/ 'color');
   foreach ($vocabs as $vocab_name) {
     $vocab = taxonomy_vocabulary_machine_name_load($vocab_name);
     if(!empty($vocab)) {
@@ -31,7 +34,7 @@
   <div id="product-filter-boutique" class="desktop-only">
     <?php foreach($filter_links as $tid => $filter_link) : ?>
     <span class="prodfiltre-<?php print $tid; ?>">
-      <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : 'NA'); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau'/*'type_chateau'*/ ? $tid : 'NA'); ?>">
+      <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : 'NA'); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : 'NA'); ?>">
         <span><span></span></span>
         <?php print $filter_link['term_name']; ?>
       </a></span>
