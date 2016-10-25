@@ -1,4 +1,4 @@
-<div class="product teaser" id="nid-<?php echo $node->nid; ?>"  data-color="<?php echo (!empty($node->field_product_color['und'][0]['tid']) ? $node->field_product_color['und'][0]['tid'] : 'NA'); ?>" data-chateau="<?php echo (!empty($node->field_product_type['und'][0]['value']) ? $node->field_product_type['und'][0]['value'] : 'NA'); ?>">
+<div class="product teaser" id="nid-<?php echo $node->nid; ?>"  data-color="<?php echo (!empty($node->field_product_color['und'][0]['tid']) ? $node->field_product_color['und'][0]['tid'] : ''); ?>" data-chateau="<?php echo (!empty($node->field_product_type['und'][0]['value']) ? $node->field_product_type['und'][0]['value'] : ''); ?>">
   <?php   
   
     if ($node->nid == 7) { 

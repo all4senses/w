@@ -34,7 +34,7 @@
   <div id="product-filter-boutique" class="desktop-only">
     <?php foreach($filter_links as $tid => $filter_link) : ?>
     <span class="prodfiltre-<?php print $tid; ?>">
-      <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : 'NA'); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : 'NA'); ?>">
+      <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
         <span><span></span></span>
         <?php print $filter_link['term_name']; ?>
       </a></span>
