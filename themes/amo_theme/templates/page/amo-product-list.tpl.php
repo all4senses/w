@@ -13,7 +13,7 @@
   <?php 
   $sort_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
   ?>
-  <div id="product-filter-boutique" class="desktop-only">
+  <div id="product-filter" class="desktop-only">
     <?php foreach($sort_links as $tid => $sort_link) : ?>
     <span class="prodfiltre-<?php print $tid; ?>">
       <a href="#" data-color="<?php print $tid; ?>">
