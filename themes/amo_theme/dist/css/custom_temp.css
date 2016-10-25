@@ -134,3 +134,15 @@ display: inline-block;
     position: absolute;
     z-index: 100;
 }
+
+
+.page-boutique #product-filter {
+    display: block;
+    position: relative;
+    background-color: black;
+    margin-top: 30px;
+}
+
+.page-boutique #admin-menu {
+    display: none;
+}
