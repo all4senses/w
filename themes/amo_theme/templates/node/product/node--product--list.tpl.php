@@ -8,8 +8,10 @@
   ?>
   <?php   
   $path = drupal_get_path('theme', 'amo_theme');
-  $link_img = $node->field_product_image['und'][0]['uri'];
-  print "<img src=". image_style_url('product-list',  $link_img) . " />"; ?>
+  if($link_img = $node->field_product_image['und'][0]['uri']) {
+    print "<img src=". image_style_url('product-list',  $link_img) . " />"; 
+  }
+  ?>
   <h1 class="product-title">
     <?php print $title; ?>
   </h1>
