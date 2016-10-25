@@ -19,13 +19,25 @@
     if(!empty($vocab)) {
       $terms = taxonomy_get_tree($vocab_color->vid);
       foreach($terms as $term) {
-        $filter_links[$term->tid] = $term->name;
+        $filter_links[$term->tid] = array('vocabulary' => $vocab_name, 'term_name' => $term->name);
       }
     }
   }
   
   //$filter_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
   ?>
+  
+  <div id="product-filter-boutique" class="desktop-only">
+    <?php foreach($filter_links as $tid => $filter_link) : ?>
+    <span class="prodfiltre-<?php print $tid; ?>">
+      <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : 'NA'); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : 'NA'); ?>">
+        <span><span></span></span>
+        <?php print $filter_link['term_name']; ?>
+      </a></span>
+    <?php endforeach; ?>
+  </div>
+  
+  <?php /*
   <div id="product-filter-boutique" class="desktop-only">
     <?php foreach($filter_links as $tid => $filter_link) : ?>
     <span class="prodfiltre-<?php print $tid; ?>">
@@ -35,6 +47,7 @@
       </a></span>
     <?php endforeach; ?>
   </div>
+  */ ?>
 
   <div class="product-list-wrapper scroll-mobile-to">
     <div class="wrapper">
