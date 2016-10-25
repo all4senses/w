@@ -2,8 +2,9 @@
 
     console.log('xxx...');
     $('body').on('click', '.product-filter-boutique a', function(event) {
-        event.preventDefault();
         console.log('click filter...');
+        event.preventDefault();
+        
     });
 
 
