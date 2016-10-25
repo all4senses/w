@@ -17,7 +17,7 @@
   foreach ($vocabs as $vocab_name) {
     $vocab = taxonomy_vocabulary_machine_name_load($vocab_name);
     if(!empty($vocab)) {
-      $terms = taxonomy_get_tree($vocab_color->vid);
+      $terms = taxonomy_get_tree($vocab->vid);
       foreach($terms as $term) {
         $filter_links[$term->tid] = array('vocabulary' => $vocab_name, 'term_name' => $term->name);
       }
