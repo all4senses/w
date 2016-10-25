@@ -30,9 +30,22 @@
       </div>
 	<?php endif; ?>
 
+	<?php
+ $output['#prev_col'] = amo_navigation_get_next_type('boutique', TRUE);
+  $output['#next_col'] = amo_navigation_get_next_type('boutique');
 
+?>
+<a href="<?php print $output['#prev_col']['link']; ?>"
+   data-orientation="left"
+   class="ajax-link ajax-link-nav ajax-link-left black-link">
+  <?php print $output['#prev_col']['label']; ?>
+</a>
 
-
+<a href="<?php print ['#next_col']['link']; ?>"
+   data-orientation="right"
+   class="ajax-link ajax-link-nav ajax-link-right black-link">
+  <?php print ['#next_col']['label']; ?>
+</a>
 
     
     

@@ -128,3 +128,9 @@ display: inline-block;
 .page-boutique .add-to-cart-wrapper-list .item-title {
     color: white;
 }
+
+
+.page-boutique .cart-summary-wrapper {
+    position: absolute;
+    z-index: 100;
+}
