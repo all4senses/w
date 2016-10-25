@@ -196,6 +196,6 @@ display: inline-block;
     border-radius: 0;
 }
 
-#product-filter-boutique a:hover span span {
+#product-filter-boutique a:hover span span, #product-filter-boutique a.active span span {
     background-color: #fff;
 }

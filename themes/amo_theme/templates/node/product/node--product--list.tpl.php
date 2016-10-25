@@ -103,7 +103,7 @@
   </div>
 </div>
 
-<!--
+<?php /*
 <style>
 
  .product-list .title {
@@ -175,4 +175,4 @@ display: inline-block;
 } 
  
 </style>
--->
+*/ ?>
