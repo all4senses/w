@@ -28,7 +28,7 @@
         }
         else {
             console.log('Hide some...');
-            $.each(links, function(link) {
+            links.each(function(link) {
                 console.log(link, 'link...');
             });  
         }
