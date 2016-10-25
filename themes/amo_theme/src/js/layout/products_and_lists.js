@@ -25,7 +25,7 @@
         if (links.length == links_active.length || links.length == links_inactive.length) {
             // Show all products
             console.log('Show all');
-            
+            $('.page-boutique .product.teaser.hidden').removeClass('hidden');
         }
         else {
             console.log('Hide some...');
