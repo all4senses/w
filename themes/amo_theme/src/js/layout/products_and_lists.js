@@ -14,6 +14,7 @@
     });
     
     function update_products_view() {
+        var color, chateau;
         var links = $('#product-filter-boutique a');
         var links_active = $('#product-filter-boutique a.active');
         var links_inactive = $('#product-filter-boutique a:not(.active)');
@@ -29,10 +30,13 @@
         else {
             console.log('Hide some...');
             links.each(function(index) {
-                if (!$(this).data('color')) {
-                    console.log('empty color');
+                if (color = $(this).data('color')) {
+                    console.log(color, 'color');
                 }
-                console.log($(this).data('color'), 'link color...');
+                else if (chateau = $(this).data('chateau')) {
+                    console.log(chateau, 'chateau');
+                }
+                //console.log($(this).data('color'), 'link color...');
             });  
         }
         
