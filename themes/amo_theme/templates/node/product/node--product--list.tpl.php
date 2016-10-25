@@ -2,7 +2,7 @@
   <?php   
   
     if ($node->nid == 7) { 
-      dpm($node); 
+      //dpm($node); 
     }
   
   ?>
