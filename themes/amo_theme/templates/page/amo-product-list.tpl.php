@@ -11,14 +11,27 @@
   <div class="title desktop-only"><?php print t('Online Store'); ?></div>
 
   <?php 
-  $sort_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
+  
+  $filter_links = array();
+  $vocabs = array('type_chateau', 'color');
+  foreach ($vocabs as $vocab_name) {
+    $vocab = taxonomy_vocabulary_machine_name_load($vocab_name);
+    if(!empty($vocab)) {
+      $terms = taxonomy_get_tree($vocab_color->vid);
+      foreach($terms as $term) {
+        $filter_links[$term->tid] = $term->name;
+      }
+    }
+  }
+  
+  //$filter_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
   ?>
   <div id="product-filter-boutique" class="desktop-only">
-    <?php foreach($sort_links as $tid => $sort_link) : ?>
+    <?php foreach($filter_links as $tid => $filter_link) : ?>
     <span class="prodfiltre-<?php print $tid; ?>">
       <a href="#" data-color="<?php print $tid; ?>">
         <span><span></span></span>
-        <?php print $sort_link; ?>
+        <?php print $filter_link; ?>
       </a></span>
     <?php endforeach; ?>
   </div>
