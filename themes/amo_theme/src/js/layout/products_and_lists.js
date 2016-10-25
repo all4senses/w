@@ -5,6 +5,7 @@
         event.preventDefault();
         
         var e = $(this);
+        e.toggleClass('active');
         console.log(e, 'this');
         
         update_products_view();
@@ -12,7 +13,7 @@
     });
     
     function update_products_view() {
-        var links = $('#product-filter a');
+        var links = $('#product-filter-boutique a');
         console.log(links, 'links');
     }
     
