@@ -1,3 +1,15 @@
+<?php 
+$sort_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
+?>
+<div id="product-filter" class="desktop-only">
+  <?php foreach($sort_links as $tid => $sort_link) : ?>
+  <span class="prodfiltre-<?php print $tid; ?>">
+    <a href="#" data-color="<?php print $tid; ?>">
+      <span><span></span></span>
+      <?php print $sort_link; ?>
+    </a></span>
+  <?php endforeach; ?>
+</div>
 
 <div class="product-list">
 
