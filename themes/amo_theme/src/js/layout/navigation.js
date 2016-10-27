@@ -41,6 +41,8 @@ function my_inits(){
 
 Drupal.behaviors.custom_ajax_navigation={attach:function(context,settings){
 
+console.log('in attach 11...');
+
   if(gd.processed(this)) return;
 
   var content      = $('#content');
