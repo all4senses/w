@@ -2,8 +2,6 @@
 
     $('body').on('click', '#product-filter-boutique a', function(event) {
         event.preventDefault();
-        
-        console.log('1111 1112');
 
         var e = $(this);
         e.toggleClass('active');
