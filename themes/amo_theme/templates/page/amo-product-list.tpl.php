@@ -28,7 +28,6 @@
     }
   }
   
-  //$filter_links = array('Shato', 'Murlo', 'Red', 'Orange', 'Black');
   ?>
   
   <div id="product-filter-boutique" class="desktop-only">
