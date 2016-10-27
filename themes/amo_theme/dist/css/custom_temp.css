@@ -229,3 +229,7 @@
 #product-filter-boutique a:hover span span, #product-filter-boutique a.active span span {
     background-color: #000;
 }
+
+.cart-summary-wrapper:hover, .cart-summary-wrapper.opened {
+    width: 39.2rem!important;
+}

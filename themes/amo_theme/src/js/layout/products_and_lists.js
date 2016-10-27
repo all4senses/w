@@ -45,5 +45,12 @@
     }
     
     
+    $('body').on('click', '.commerce-add-to-cart input', function(event) {
+
+
+        console.log('xxx...i');
+    });
+    
+    
 
 }}})(jQuery);
