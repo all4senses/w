@@ -1,4 +1,5 @@
 var first_load = true;
+console.log('before start...');
 (function($){'use strict';
 
 console.log('on start...');
