@@ -12,7 +12,7 @@ stylesheets[all][] = dist/css/custom_temp.css
 
 scripts[] = dist/js/is-mobile.js
 scripts[] = src/js/layout/navigation.js
-scripts[] = dist/js/all.js
+;scripts[] = dist/js/all.js
 scripts[] = src/js/layout/products_and_lists.js
 
 
