@@ -1,0 +1,590 @@
+.add_to_cart_button_item
+  //display block
+  //float left
+  //width 100%
+  //color #000
+  text-align left
+  //border 1px solid black
+  margin 1px !important
+  padding 5px !important
+  //background #fff
+  border none !important
+  line-height 28px
+  font-family lato
+  //padding-right 15px !important
+  //padding-left 15px !important
+  form
+    &.commerce-add-to-cart
+      display inline-block
+      float right
+    .form-item-quantity
+      span
+        position absolute
+        right 0
+        height 50% !important
+        width 16px
+        &.commerce-quantity-plusminus-link
+          &.commerce-quantity-plusminus-link-decrease
+            top 50% !important
+            padding-top 2px
+            a
+              background-image url(../img/picto/add_click_down.png)
+              background-size 60% auto
+              background-repeat no-repeat
+              background-position center center
+          &.commerce-quantity-plusminus-link-increase
+            padding-bottom 2px
+            a
+              background-image url(../img/picto/add_click_up.png)
+              background-size 60% auto
+              background-repeat no-repeat
+              background-position center center
+    .form-item
+      margin 0
+      padding-right 18px !important
+      margin-right 10px !important
+  label
+    display none
+  .button
+    padding 0px 5px !important
+    height 30px !important
+    display inline-block
+    width auto
+    background-color #9e9e9e
+    font-family Lato, sans-serif
+    font-size 1.6rem
+    color #2196F3
+    border 0px solid #fff
+    cursor pointer
+    text-transform uppercase
+    transition all .3s ease
+    text-decoration none
+    -webkit-appearance none
+    -moz-appearance none
+    appearance none
+    float none
+    line-height 3
+  input[type=text]
+    padding .3rem .4rem
+    transition all .3s ease
+    border-radius 1px
+    color #000
+    background-color white
+    border 1px solid
+    outline 0
+    text-align left
+    font-size 1.5rem
+    font-family Lato, sans-serif
+    vertical-align top
+    width 50px
+    height 30px
+    width 33px !important
+    text-align center
+  .form-item
+    float left
+    width auto
+    position relative
+  #products-wrapper
+    .actions
+      a
+        height 30px
+        color #000
+        padding 5px
+        margin-top 0 !important
+        margin-bottom 0 !important
+
+#products-wrapper
+  .actions
+    a
+      margin-top 0px !important
+      margin-top 0px !important
+      margin-bottom 0 !important
+      &.R
+        &.add-to-cart
+          padding-bottom 0 !important
+          height 66px
+          background-image url(../img/picto/cart_new.png)
+          background-size 53px auto
+          background-repeat no-repeat
+          background-position center 20px
+    .commerce-quantity-plusminus-link
+      a
+        display block
+        padding 0
+        height 100% !important
+        position relative !important
+        color transparent !important
+        background-color #000
+        border-radius 0px
+        -moz-border-radius 0px
+        -webkit-border-radius 0px
+
+.add-to-cart-form-wrapper
+  display none
+  bottom 1px !important
+  right 90px !important
+  width 450px !important
+  display block !important
+  width 0px !important
+  height 80px
+  overflow hidden
+  -webkit-transition all 0.6s ease-in
+  -moz-transition all 0.6s ease-in
+  -o-transition all 0.6s ease-in
+  transition all 0.6s ease-in
+  .add_to_cart_button_item
+    position absolute
+    left 0
+    width 450px !important
+  & > .add_to_cart_button_item
+    &:nth-child(2)
+      top 40px
+
+.add-to-cart-wrapper
+  &:hover
+    .add-to-cart-form-wrapper
+      display block
+
+.cart-summary-wrapper
+  background-color #FFF
+  display block !important
+  padding 0 !important
+  overflow hidden
+  width 70px !important
+  border none !important
+  left 0 !important
+  -webkit-transition all 0.6s ease-in
+  -moz-transition all 0.6s ease-in
+  -o-transition all 0.6s ease-in
+  transition all 0.6s ease-in
+  .cart-summary-left
+    float left
+    display block !important
+    width 313px !important
+    padding 15px 40px 0 40px !important
+    position absolute
+    right 75px
+    top 0
+    overflow hidden
+    a
+      font-size 1.5rem !important
+      background-color #000
+      //color #F00 !important
+      //margin 13px auto 0 auto !important
+      //background-color: #000;
+      color #fff
+      display block
+      font-size 1.3rem
+      font-weight bold
+      margin 10px auto 0 auto
+      padding 5px 0 6px
+      text-align center
+      text-transform uppercase
+      width 100%
+    p
+      font-size 13px !important
+  &:hover
+    width 392px !important
+  &.active
+    width 392px !important
+  .cart-summary-right
+    float right
+
+.actions
+  &:hover
+    .add-to-cart-wrapper
+      .add-to-cart-form-wrapper
+        width 450px !important
+
+.mobile
+  #products-wrapper
+    .actions
+      a
+        &.R
+          &.add-to-cart
+            background-image url(/sites/all/themes/amo_theme/dist/img/picto/cart_new_black.png)
+            background-size 33px auto
+            background-repeat no-repeat
+            background-position center 24px
+            height 5rem !important
+  .add-to-cart-wrapper
+    .add-to-cart-form-wrapper
+      border .2rem solid transparent !important
+  .add-to-cart-form-wrapper
+    display block !important
+    border-radius .2rem
+    right 54px !important
+    bottom -2px !important
+    width 0px !important
+    height 200px
+    width 0px !important
+    height 220px
+    .add_to_cart_button_item
+      height 200px
+      width 200px !important
+    & > .add_to_cart_button_item
+      &:nth-child(2)
+        top 100px
+  .actions
+    &:hover
+      .add-to-cart-wrapper
+        .add-to-cart-form-wrapper
+          width 200px !important
+          border .2rem solid #000 !important
+          right 52px !important
+  .add_to_cart_button_item
+    form
+      &.commerce-add-to-cart
+        display block !important
+        clear both
+        float left !important
+        margin-top 10px
+    input[type=submit]
+      height 30px
+      line-height 30px
+  .cart-summary-wrapper
+    &.cf
+      top 20px
+      width 45px !important
+    &.active
+      width 100% !important
+    &:hover
+      width 100% !important
+    .cart-summary-right
+      width 45px !important
+    .cart-summary-left
+      width 313px !important
+      padding 5px 40px 0 40px !important
+      position absolute
+      right 25px
+      top 0
+      overflow hidden
+      a
+        font-size 10px !important
+        margin 5px auto 0 auto !important
+
+@media (min-width: 767px)
+  .ajax-wrapper
+    &.page-vins-terres-des-amoureuses
+      .add-to-cart-form-wrapper
+        right inherit !important
+        left 90px
+        .add_to_cart_button_item
+          position absolute
+          left 0
+          width 530px !important
+      .actions
+        &:hover
+          .add-to-cart-wrapper
+            .add-to-cart-form-wrapper
+              width 530px !important
+              z-index 9999
+
+.page-cart button, .page-cart .button, .page-cart input[type=reset], .page-cart input[type=submit], .page-cart input[type=button]
+  color #000 !important
+
+.page-cart
+  table
+    &.views-table
+      &.cols-5
+        width 100%
+        clear both
+        *
+          font-family lato
+        tr
+          & > *
+            text-align center
+          & > *:nth-child(1)
+            width 40%
+          & > *:nth-child(2)
+            width 30%
+          & > *:nth-child(3)
+            width 15%
+          & > *:nth-child(5)
+            width 10%
+          & > *:nth-child(4)
+            width 5%
+          & > td
+            font-size 18px
+            padding 40px 0 25px 0
+            line-height 40px
+        th
+          font-size 18px
+          text-transform uppercase
+          font-weight bold
+          padding 13px 0
+  thead
+    & > tr
+      background #000 !important
+      width 100%
+      & > th
+        float left
+        color #fff
+        text-align center
+  tbody
+    tr
+      border-bottom 1px solid #000
+  tr
+    width 100%
+  .commerce-quantity-plusminus-link
+    display none
+  input[type=text]
+    border-color #000 !important
+    color #000 !important
+    text-align center
+    width 40px !important
+    height 40px
+  input[type=submit]
+    margin 0
+  .form-item
+    &.form-type-textfield
+      margin 0
+  .delete-line-item
+    border-color #000 !important
+    font-size 0 !important
+    width 40px !important
+    height 40px
+    background-color #000
+    -webkit-transition all 0.3s
+    -moz-transition all 0.3s
+    -o-transition all 0.3s
+    transition all 0.3s
+    background-image url(../img/picto/remove_icon.png)
+    background-size auto 72%
+    background-repeat no-repeat
+    background-position center center
+    &:hover
+      background-color #505050
+  td
+    &.views-field
+      &.views-field-commerce-total
+        &.price
+          font-weight bold !important
+  .line-item-summary
+    float right
+    margin-top 47px
+    font-size 18px !important
+    font-weight bold
+    text-transform uppercase
+  span
+    &.line-item-total-label
+      margin-right 40px
+  input#edit-checkout
+    background #000 !important
+    color #fff !important
+    height auto !important
+    line-height normal !important
+    font-size 18px
+    font-weight bold
+    border 1px solid #000
+    padding 10px 10px
+    -webkit-transition all 0.3s
+    -moz-transition all 0.3s
+    -o-transition all 0.3s
+    transition all 0.3s
+    &:hover
+      background #fff !important
+      color #000 !important
+  th
+    &.views-field
+      &.views-field-edit-delete
+        font-size 0 !important
+  input#edit-submit
+    margin-right 25px
+    font-size 18px
+    font-weight bold
+
+.page-cart table.views-table.cols-5 tbody, .page-cart table.views-table.cols-5 tr, .page-cart table.views-table.cols-5 th, .page-cart table.views-table.cols-5 td, .page-cart table.views-table.cols-5, .page-cart table.views-table.cols-5 thead
+  display block
+  float left
+
+.page-cart table.views-table.cols-5 tbody, .page-cart table.views-table.cols-5 thead
+  width 100% !important
+
+.view-commerce-cart-form
+  margin-top 60px
+
+.page-checkout
+  background #fff
+  overflow-x hidden
+  .select2
+    .select2-selection
+      border 1px solid #454545
+      color #000 !important
+      .select2-selection__arrow
+        height 5.2rem
+        border-left 1rem solid transparent
+        border-right 1rem solid transparent
+        border-top 1rem solid #000
+        width 0
+        height 0
+        margin-top 1rem
+        margin-right 1rem
+      .select2-selection__rendered
+        font-size 1.5rem
+        line-height normal
+        padding 0
+        color inherit
+  input
+    color #000 !important
+    border-color #000 !important
+    height 20px !important
+    margin 0 !important
+  fieldset#edit-cart-contents
+    display none
+  form#commerce-checkout-form-checkout
+    width 100%
+    margin-top 100px
+    *
+      font-family lato
+    fieldset#edit-customer-profile-billing
+      width 40%
+  .nav-map
+    .col
+      a
+        background-color #000
+        &:hover
+          background-color #bd1787
+  div
+    &.addressfield-container-inline
+      & > div
+        &.form-item
+          margin 0 !important
+  fieldset
+    &.commerce_coupon
+      display none
+  span
+    &.select2-selection
+      margin-bottom 15px !important
+      padding 3px 6px
+      height 30px !important
+      line-height 30px !important
+      text-transform uppercase
+    &.checkout-processing
+      &.element-invisible
+        display none
+    &.button-operator
+      display none
+  .fieldset-wrapper
+    float left
+    width 100%
+    margin-top 24px
+  label
+    font-size 17px
+    font-weight bold
+    margin-bottom 8px
+  form
+    .form-item
+      margin 1.2rem 0
+      margin 0
+  .page-checkout
+    input[type=text]
+      margin-bottom 15px !important
+      padding 1px 6px
+      height 30px !important
+  input#edit-continue
+    background #000 !important
+    color #fff !important
+    height auto !important
+    line-height normal !important
+    font-size 18px
+    font-weight bold
+    border 1px solid #000
+    padding 10px 10px
+    -webkit-transition all 0.3s
+    -moz-transition all 0.3s
+    -o-transition all 0.3s
+    transition all 0.3s
+    float right
+    &:hover
+      background #fff !important
+      color #000 !important
+  fieldset#edit-buttons
+    margin-top 20px
+    border-top 1px solid #000
+  input#edit-cancel
+    margin-right 25px
+    font-size 18px
+    font-weight bold
+    height auto !important
+    text-decoration none !important
+    padding-left 15px
+    background-image url(../img/picto/left_arrow_cancel.png)
+    background-size auto 32%
+    background-repeat no-repeat
+    background-position left center
+
+.page-checkout div#addressfield-wrapper select, .page-checkout div#addressfield-wrapper span, .page-checkout div#addressfield-wrapper a, .page-checkout fieldset#edit-cart-contents p, .page-checkout label
+  color #000 !important
+  line-height normal !important
+
+.page-checkout button, .page-checkout .button, .page-checkout input[type=reset], .page-checkout input[type=submit], .page-checkout input[type=button]
+  line-height normal
+
+.ajax-wrapper
+  &.html
+    &.not-front
+      &.logged-in
+        &.no-sidebars
+          &.page-checkout
+            &.page-checkout-.page-checkout-8
+              &.i18n-en
+                &.section-checkout
+                  &.display
+                    overflow auto
+                    overflow-x hidden
+
+span
+  &.qty
+    display inline-block
+
+
+.page-boutique
+  .wrapper-content
+    padding (50px / 2)
+  .ajax-link-left,
+  .ajax-link-right
+    &::after
+      filter invert(100%)
+  .product-list
+    clearfix()
+    .desktop-only
+      position absolute
+    .title
+      color #000
+      float left
+      margin 0
+      line-height 20rem
+      font-weight 200
+      font-size 90
+    .product-list-wrapper
+      position absolute
+      top 0
+      width 100%
+      .product-list-content
+        clearfix()
+        overflow-y auto
+        height 100%
+        width 100%
+        margin 0 auto
+        position relative
+        .product
+        &.teaser
+          float left
+          position relative
+          //width 33%
+          padding 2rem 1.8rem 2.8rem 1.8rem
+          clearfix()
+          //float left
+          width (100% / 2)
+          @media (min-width: 767px)
+            width (100% / 3)
+          @media (min-width: 1160px)
+            width (100% / 4)
+    #product-filter-boutique
+      display block
+      line-height 6.5rem
+      right 0
+      z-index 99
+      @media (min-width: 767px)
+        line-height 21.5rem

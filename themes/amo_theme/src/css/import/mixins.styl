@@ -67,3 +67,10 @@ wrapper(max_width)
   max-width max_width
   margin auto
   clear both
+
+// clearfix simplified
+clearfix()
+  &:after
+    content ""
+    clear both
+    display table
