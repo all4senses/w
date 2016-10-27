@@ -1,7 +1,9 @@
 var first_load = true;
 (function($){'use strict';
 
+console.log('on start...');
 function my_inits(){
+        console.log('on init...');
 	jQuery('form[id ^= commerce-cart-add-to-cart-form-]').submit(function(e) {
 		e.preventDefault();
 	   $.ajax({
