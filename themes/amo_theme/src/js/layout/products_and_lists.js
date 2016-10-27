@@ -45,7 +45,7 @@
     }
     
     
-    $('body').on('click', '.commerce-add-to-cart', function(event) {
+    $('.commerce-add-to-cart input').click(function(event) {
 
 
         console.log('xxx...i');
