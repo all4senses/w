@@ -7,6 +7,7 @@ function my_inits(){
         console.log('on init...');
 	jQuery('form[id ^= commerce-cart-add-to-cart-form-]').submit(function(e) {
 		e.preventDefault();
+                console.log('on submit...');
 	   $.ajax({
 			url: "/en/system/ajax",
 			data: $(this).serialize(),
@@ -23,7 +24,9 @@ function my_inits(){
 					if (z[i].command == 'show_my_cart') {
 						$('#'+z[i].id).parent().parent().parent().addClass('hide_add_to_cart_items').removeClass('add-to-cart-wrapper');
 						$('.slick-active .R.product-wrapper.left').prev('.cart-summary-wrapper').addClass('active');
+                                                console.log('after submit...');
 						setTimeout(function(){
+                                                        console.log('after timeout...');
 							$('.cart-summary-wrapper.active').removeClass('active');
 							$('.hide_add_to_cart_items').addClass('add-to-cart-wrapper').removeClass('hide_add_to_cart_items');
 						}, 5000);  
