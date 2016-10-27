@@ -195,13 +195,18 @@ console.log('in attach 11...');
 	"use strict";
 	$(document).ready(function(){
 		$('.R.add-to-cart').on('click',function(e){
+                    console.log('on click 11...');
 			e.preventDefault();
 		});
 	});
+        console.log('before show_my_cart...');
+        
 	Drupal.ajax.prototype.commands.show_my_cart = function(ajax, response, status) {
+            console.log('start show_my_cart...');
 		$('#'+response.id).parent().parent().parent().addClass('hide_add_to_cart_items').removeClass('add-to-cart-wrapper');
 		$('.slick-active .R.product-wrapper.left').prev('.cart-summary-wrapper').addClass('active');
 		setTimeout(function(){
+                    console.log('timeout show_my_cart...');
 			$('.cart-summary-wrapper.active').removeClass('active');
 			$('.hide_add_to_cart_items').addClass('add-to-cart-wrapper').removeClass('hide_add_to_cart_items');
 		}, 5000);  
