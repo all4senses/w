@@ -33,7 +33,7 @@
 	<?php
  $output['#prev_col'] = amo_navigation_get_next_type('boutique', TRUE);
   $output['#next_col'] = amo_navigation_get_next_type('boutique');
-
+dpm($output, '$output');
 ?>
 <a href="<?php print $output['#prev_col']['link']; ?>"
    data-orientation="left"
