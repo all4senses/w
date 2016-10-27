@@ -1,13 +1,9 @@
 var first_load = true;
-console.log('before start...');
 (function($){'use strict';
 
-console.log('on start...');
 function my_inits(){
-        console.log('on init...');
 	jQuery('form[id ^= commerce-cart-add-to-cart-form-]').submit(function(e) {
 		e.preventDefault();
-                console.log('on submit...');
 	   $.ajax({
 			url: "/en/system/ajax",
 			data: $(this).serialize(),
@@ -24,9 +20,7 @@ function my_inits(){
 					if (z[i].command == 'show_my_cart') {
 						$('#'+z[i].id).parent().parent().parent().addClass('hide_add_to_cart_items').removeClass('add-to-cart-wrapper');
 						$('.slick-active .R.product-wrapper.left').prev('.cart-summary-wrapper').addClass('active');
-                                                console.log('after submit...');
 						setTimeout(function(){
-                                                        console.log('after timeout...');
 							$('.cart-summary-wrapper.active').removeClass('active');
 							$('.hide_add_to_cart_items').addClass('add-to-cart-wrapper').removeClass('hide_add_to_cart_items');
 						}, 5000);  
@@ -40,8 +34,6 @@ function my_inits(){
 
 
 Drupal.behaviors.custom_ajax_navigation={attach:function(context,settings){
-
-console.log('in attach 11...');
 
   if(gd.processed(this)) return;
 
@@ -195,19 +187,14 @@ console.log('in attach 11...');
 	"use strict";
 	$(document).ready(function(){
 		$('.R.add-to-cart').on('click',function(e){
-                    console.log('on click 11...');
 			e.preventDefault();
 		});
 	});
-        console.log('before show_my_cart...');
-        
 	Drupal.ajax.prototype.commands.show_my_cart = function(ajax, response, status) {
-            console.log('start show_my_cart...');
 		$('#'+response.id).parent().parent().parent().addClass('hide_add_to_cart_items').removeClass('add-to-cart-wrapper');
 		$('.slick-active .R.product-wrapper.left').prev('.cart-summary-wrapper').addClass('active');
                 $('.page-boutique .cart-summary-wrapper').addClass('active');
 		setTimeout(function(){
-                    console.log('timeout show_my_cart...');
 			$('.cart-summary-wrapper.active').removeClass('active');
 			$('.hide_add_to_cart_items').addClass('add-to-cart-wrapper').removeClass('hide_add_to_cart_items');
 		}, 5000);  

@@ -2,6 +2,8 @@
 
     $('body').on('click', '#product-filter-boutique a', function(event) {
         event.preventDefault();
+        
+        console.log('1111 1112');
 
         var e = $(this);
         e.toggleClass('active');
@@ -43,14 +45,5 @@
         
         
     }
-    
-    
-    $('.commerce-add-to-cart input').click(function(event) {
-
-
-        console.log('xxx...i');
-    });
-    
-    console.log('xxx a');
 
 }}})(jQuery);
