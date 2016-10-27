@@ -205,6 +205,7 @@ console.log('in attach 11...');
             console.log('start show_my_cart...');
 		$('#'+response.id).parent().parent().parent().addClass('hide_add_to_cart_items').removeClass('add-to-cart-wrapper');
 		$('.slick-active .R.product-wrapper.left').prev('.cart-summary-wrapper').addClass('active');
+                $('.page-boutique .cart-summary-wrapper').addClass('active');
 		setTimeout(function(){
                     console.log('timeout show_my_cart...');
 			$('.cart-summary-wrapper.active').removeClass('active');
