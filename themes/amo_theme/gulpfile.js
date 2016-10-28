@@ -30,18 +30,26 @@ autoprefixer   = require('autoprefixer'),
 livereload     = require('gulp-livereload'),
 fs             = require('fs'),
 isThere        = require('is-there')
+argv           = process.argv;
 
-const MODE = isThere('./.git') ? 'dev' : 'prod';
+const MODE = isThere('./.git') || argv.indexOf('--dev') > -1 ? 'dev' : 'prod';
 
-if(MODE === 'dev') {
+if(isThere('./.git')) {
   console.log(`\u001b[33m
-*** GD Theme is in DEVELOPMENT mode ***
-Remove the .git from this directory if you're in PRODUCTION.
-\u001b[0m`);
+  *** GD Theme is in DEVELOPMENT mode ***
+  Remove the .git from this directory if you're in PRODUCTION.
+  \u001b[0m`);
+}
+if(argv.indexOf('--dev') > -1) {
+  console.log(`\u001b[33m
+  *** GD Theme is in DEVELOPMENT mode ***
+  You are running: 'gulp --dev',
+  to compile PRODUCTION run: 'gulp' with no command line parameter.
+  \u001b[0m`);
 }
 
 var ie8          = false; // to support IE8 -> true
-var css_optimize = true;
+var css_optimize = MODE === 'dev' ? false : true;
 var first_load   = true;
 
 var replace_rem  = !ie8;
@@ -160,19 +168,38 @@ gulp.task('js', function() {
     processors.push(csswring({removeAllComments: true, map: false}));
   }
 
-  gulp.src(path.css)
-  .pipe(plumber({errorHandler: onError}))
-  .pipe(sourcemaps.init())
-  .pipe(stylus({
-    use: [ rupture() ],
-    compress: true
-  }))
-  .pipe(postcss(processors))
-  .pipe(concat('all.css'))
-  .pipe(gulp.dest('dist/css'))
-  .pipe(livereload())
-  .pipe(sourcemaps.write('.'))
-  .pipe(size({showFiles:true}));
+  if(MODE === 'dev') {
+    gulp.src(path.css)
+      .pipe(plumber({errorHandler: onError}))
+      .pipe(sourcemaps.init())
+      .pipe(stylus({
+        use: [ rupture() ],
+        linenos: true
+      }))
+      .pipe(postcss(processors))
+      .pipe(concat('all.css'))
+      .pipe(gulp.dest('dist/css'))
+      .pipe(livereload())
+      .pipe(sourcemaps.write('.'))
+      .pipe(size({showFiles:true})
+    );
+  }
+  else {
+    gulp.src(path.css)
+      .pipe(plumber({errorHandler: onError}))
+      .pipe(sourcemaps.init())
+      .pipe(stylus({
+        use: [ rupture() ],
+        compress: true
+      }))
+      .pipe(postcss(processors))
+      .pipe(concat('all.css'))
+      .pipe(gulp.dest('dist/css'))
+      .pipe(livereload())
+      .pipe(sourcemaps.write('.'))
+      .pipe(size({showFiles:true})
+    );
+  }
 
 
   if(first_load) {
