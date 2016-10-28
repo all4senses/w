@@ -229,51 +229,85 @@ function commerce_paybox_offsite_redirect_form($form, &$form_state, $order, $pay
   // Allow other modules to alter Paybox CGI module parameters.
   drupal_alter('commerce_paybox_offsite_params', $pbx_params, $order, $settings);
 
-  // Paybox mode and output must not be altered. Mode 4 is "command line" mode,
-  // output D is "output only PXB_DATA".
-  $pbx_params['PBX_MODE'] = 4;
-  $pbx_params['PBX_OUTPUT'] = 'D';
+  // If no HMAC key, use CGI module.
+  $hmac_key = variable_get('commerce_paybox_hmac_key');
+  if (!$hmac_key) {
+    // Paybox mode and output must not be altered. Mode 4 is "command line"
+    // mode, output D is "output only PXB_DATA".
+    $pbx_params['PBX_MODE'] = 4;
+    $pbx_params['PBX_OUTPUT'] = 'D';
 
-  // Construct the command line.
-  $bin_params = '';
-  foreach ($pbx_params as $name => $value) {
-    $safe_value = escapeshellarg($value);
-    $bin_params .= " $name=$safe_value";
+    // Construct the command line.
+    $bin_params = '';
+    foreach ($pbx_params as $name => $value) {
+      $safe_value = escapeshellarg($value);
+      $bin_params .= " $name=$safe_value";
+    }
+    $bin_path = variable_get('commerce_paybox_cgi_module_path', '');
+    $cmd = DRUPAL_ROOT . '/' . $bin_path . $bin_params;
+
+    // Execute the command line : returns PBX_DATA value.
+    $output = trim(shell_exec($cmd));
+
+    $matches = array();
+    if (empty($output) || preg_match('#PAYBOX INPUT ERROR \(code (-[0-9]*?)\)#ism', $output, $matches)) {
+      // Something goes wrong with GCI execution...
+      $form['error'] = array(
+        '#type' => 'item',
+        '#title' => t('Error'),
+        '#markup' => t('Paybox module initialisation failed.'),
+      );
+
+      // Log the error.
+      $log = 'Paybox CGI module execution has failed : error @code (shell command: "!cmd").';
+      $log_vars = array(
+        '@code' => $matches[1],
+        '!cmd' => $cmd,
+      );
+      $link = l(t('View transaction'), "admin/commerce/orders/$txn->order_id/payment/$txn->transaction_id/view");
+      watchdog('commerce_paybox', $log, $log_vars, WATCHDOG_ERROR, $link);
+
+    }
+    else {
+      // CGI execution returned ok:
+      // create hidden inputs from $pbx_params.
+      $pbx_params['PBX_DATA'] = $output;
+    }
   }
-  $bin_path = variable_get('commerce_paybox_cgi_module_path', '');
-  $cmd = DRUPAL_ROOT . '/' . $bin_path . $bin_params;
+  else {
+    $pbx_params['PBX_HASH'] = variable_get('commerce_paybox_hmac_alg', 'SHA512');
+    $pbx_params['PBX_TIME'] = date('c');
 
-  // Execute the command line : returns PBX_DATA value.
-  $output = trim(shell_exec($cmd));
+    $form['#pre_render'][] = 'commerce_paybox_hmac_clean_form';
 
-  $matches = array();
-  if (empty($output) || preg_match('#PAYBOX INPUT ERROR \(code (-[0-9]*?)\)#ism', $output, $matches)) {
-    // Something goes wrong with GCI execution...
-    $form['error'] = array(
-      '#type' => 'item',
-      '#title' => t('Error'),
-      '#markup' => t('Paybox module initialisation failed.'),
-    );
+    // Disable form_token (target isn't ourselves).
+    $form['#token'] = FALSE;
 
-    // Log the error.
-    $log = 'Paybox CGI module execution has failed : error @code (shell command: "!cmd").';
-    $log_vars = array(
-      '@code' => $matches[1],
-      '!cmd' => $cmd,
-    );
-    $link = l(t('View transaction'), "admin/commerce/orders/$txn->order_id/payment/$txn->transaction_id/view");
-    watchdog('commerce_paybox', $log, $log_vars, WATCHDOG_ERROR, $link);
+    // Build of the string to hash matching POST's content
+    // used to generate PBX_HMAC.
+    $msg = '';
+    foreach ($pbx_params as $k => $v) {
+      $msg .= $k . "=" . $v . "&";
+    }
+    $msg = rtrim($msg, '&');
 
-    return $form;
+    // Code as Paybox's example to generate PBX_HMAC key.
+    $binkey = pack("H*", $hmac_key);
+    $hmac_alg = strtolower($pbx_params['PBX_HASH']);
+    $hmac = hash_hmac($hmac_alg, $msg, $binkey);
+    $pbx_params['PBX_HMAC'] = strtoupper($hmac);
   }
 
-  // Create hidden inputs from $pbx_params.
-  $pbx_params['PBX_DATA'] = $output;
+  // Order of the fields NEEDS to be kept between form and
+  // hashed string: enforcing order with #weight
+  $pbx_weight = 0.01;
   foreach ($pbx_params as $name => $value) {
     $form[$name] = array(
       '#type' => 'hidden',
       '#value' => $value,
+      '#weight' => $pbx_weight,
     );
+    $pbx_weight = $pbx_weight + 0.01;
   }
 
   $form['image'] = array(
@@ -294,7 +328,27 @@ function commerce_paybox_offsite_redirect_form($form, &$form_state, $order, $pay
   else {
     $form['#action'] = PAYBOX_URL;
   }
+  return $form;
+}
 
+/**
+ * Callback for cleaning form in the HMAC case.
+ *
+ * Removes drupal's specific form_id, form_build_id, form_token and submit's
+ * value from client's POST to paybox's servers.
+ *
+ * @param array $form
+ *   A form array.
+ *
+ * @return array
+ *   A modified form array
+ */
+function commerce_paybox_hmac_clean_form($form) {
+  // Strip drupal's elements from form.
+  unset($form['form_token']);
+  unset($form['form_build_id']);
+  unset($form['form_id']);
+  $form['submit']['#name'] = '';
   return $form;
 }
 
@@ -634,15 +688,152 @@ function commerce_paybox_map_language($langcode) {
  *   The translated error message.
  */
 function commerce_paybox_get_paybox_error_msg($error) {
+  if (drupal_substr($error, 0, 3) == '001') {
+    $precise_error = drupal_substr($error, 2);
+    switch ($precise_error) {
+      case '00':
+        $msg = t('Transaction approved or successfully handled.');
+
+      case '02':
+        $msg = t('Contact the card issuer.');
+
+      case '03':
+        $msg = t('Invalid shop.');
+
+      case '04':
+        $msg = t('Keep the card.');
+
+      case '07':
+        $msg = t('Keep the card, special conditions.');
+
+      case '08':
+        $msg = t('Approve after holder identification.');
+
+      case '12':
+        $msg = t('Invalid transaction.');
+
+      case '13':
+        $msg = t('Invalid amount.');
+
+      case '14':
+        $msg = t('Invalid holder number.');
+
+      case '15':
+        $msg = t('Unknown card issuer.');
+
+      case '17':
+        $msg = t('Client has cancelled.');
+
+      case '19':
+        $msg = t('Try transaction again later.');
+
+      case '20':
+        $msg = t('Bad answer (error on server domain).');
+
+      case '24':
+        $msg = t('Unsupported file update.');
+
+      case '25':
+        $msg = t('Unable to locate record in file.');
+
+      case '26':
+        $msg = t('Duplicate record, old record has been replaced.');
+
+      case '27':
+        $msg = t('Edit error during file update.');
+
+      case '28':
+        $msg = t('Unauthorized file access.');
+
+      case '29':
+        $msg = t('Impossible file update.');
+
+      case '30':
+        $msg = t('Format error.');
+
+      case '33':
+        $msg = t('Validity date of the card reached.');
+
+      case '34':
+        $msg = t('Fraud suspicion.');
+
+      case '38':
+        $msg = t('Number of tries for confidential code reached.');
+
+      case '41':
+        $msg = t('Lost card.');
+
+      case '43':
+        $msg = t('Stolen card.');
+
+      case '51':
+        $msg = t('Insufficient funds or no credit left.');
+
+      case '54':
+        $msg = t('Validity date of the card reached.');
+
+      case '55':
+        $msg = t('Bad confidential code.');
+
+      case '56':
+        $msg = t('Card not in the file.');
+
+      case '57':
+        $msg = t('Transaction not authorized for this cardholder.');
+
+      case '58':
+        $msg = t('Transaction not authorized for this terminal.');
+
+      case '59':
+        $msg = t('Fraud suspicion.');
+
+      case '61':
+        $msg = t('Debit limit reached.');
+
+      case '63':
+        $msg = t('Security rules not followed.');
+
+      case '68':
+        $msg = t('Absent or late answer.');
+
+      case '75':
+        $msg = t('Number of tries for confidential code reached.');
+
+      case '76':
+        $msg = t('Cardholder already opposed, old record kept.');
+
+      case '90':
+        $msg = t('System temporary stopped.');
+
+      case '91':
+        $msg = t('Card provider is unreachable.');
+
+      case '94':
+        $msg = t('Duplicate question.');
+
+      case '96':
+        $msg = t('Bad system behavior.');
+
+      case '97':
+        $msg = t('Global surveillance timeout.');
+
+      case '98':
+        $msg = t('Server is unreachable.');
+
+      case '99':
+        $msg = t('Incident from initiator domain.');
+
+      default:
+        $msg = $precise_error;
+    }
+    return t('Payment refused by autorisation center (error @error).', array('@error' => $msg));
+  }
   switch ($error) {
     case '00000':
       return t('Operation successful.');
 
     case '00001':
       return t('Connexion to autorise center failed.');
-
-    case drupal_substr($error, 0, 3) == '001':
-      return t('Payment refused by autorisation center (error @error).', array('@error' => drupal_substr($error, 2)));
 
     case '00002':
       return t('An error in coherence has occurred.');
@@ -687,7 +878,10 @@ function commerce_paybox_get_paybox_error_msg($error) {
       return t('Error in access to previously referenced data.');
 
     case '00016':
-      return t('User exist.');
+      return t('User already exists.');
+
+    case '00017':
+      return t('User does not exist.');
 
     case '00018':
       return t('Transaction not found.');
@@ -726,10 +920,10 @@ function commerce_paybox_get_paybox_error_msg($error) {
       return t('Timeout of connection ended.');
 
     case '00098':
-      return t('Error of internal connection.');
+      return t('Internal connection error.');
 
     case '00099':
-      return t('Incoherence between the question and the answer. Retry later.');
+      return t('Incoherence between the question and the answer. Try again later.');
 
     default:
       return t('Unknown error.');

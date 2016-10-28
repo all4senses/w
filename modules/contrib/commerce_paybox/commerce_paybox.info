@@ -12,9 +12,9 @@ configure = admin/commerce/config/commerce_paybox
 ; Simple tests
 files[] = tests/commerce_paybox.test
 
-; Information added by drupal.org packaging script on 2013-08-28
-version = "7.x-1.1"
+; Information added by Drupal.org packaging script on 2015-12-08
+version = "7.x-1.1+3-dev"
 core = "7.x"
 project = "commerce_paybox"
-datestamp = "1377706900"
+datestamp = "1449569043"
 

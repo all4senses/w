@@ -219,13 +219,16 @@ function commerce_stock_form_commerce_cart_validate($form, &$form_state) {
   if (isset($form_state['input']['edit_quantity'])) {
     $products = array();
     foreach ($form_state['values']['edit_quantity'] as $index => $qty) {
-      $line_item = $form_state['line_items'][$line_item_index[$index]];
-      $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-      if (in_array($line_item_wrapper->getBundle(), commerce_product_line_item_types())) {
-        $product_id = $line_item_wrapper->commerce_product->product_id->value();
-        $products[$product_id]['qty'] = isset($products[$product_id]) ? $products[$product_id]['qty'] + $qty : $qty;
-        $products[$product_id]['line'] = $index;
-      }
+
+             $line_item = $form_state['line_items'][$line_item_index[$index]];
+             $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+              if (in_array($line_item_wrapper->getBundle(), commerce_product_line_item_types())) {
+                    $product_id = $line_item_wrapper->commerce_product->product_id->value();
+                    $products[$product_id]['qty'] = isset($products[$product_id]) ? $products[$product_id]['qty'] + $qty : $qty;
+                    $products[$product_id]['line'] = $index;
+               }
+	  
     }
 
     foreach ($products as $product_id => $product) {

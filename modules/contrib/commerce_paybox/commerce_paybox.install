@@ -79,6 +79,8 @@ function commerce_paybox_install() {
  */
 function commerce_paybox_uninstall() {
   variable_del('commerce_paybox_cgi_module_path');
+  variable_del('commerce_paybox_hmac_key');
+  variable_del('commerce_paybox_hmac_alg');
   variable_del('commerce_paybox_pubkey_path');
   variable_del('commerce_paybox_paybox_servers');
 }
