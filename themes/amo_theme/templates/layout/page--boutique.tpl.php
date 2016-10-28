@@ -2,7 +2,7 @@
     
     
     
-
+<?php /*
 <?php
 		global $user;
 		$uid = $user->uid;
@@ -29,6 +29,8 @@
           </div>
       </div>
 	<?php endif; ?>
+    
+ */ ?>   
 
 <?php /*    
 <?php
