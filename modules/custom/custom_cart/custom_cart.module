@@ -57,9 +57,10 @@ function custom_cart_form_alter(&$form, &$form_state, $form_id) {
   
 
   if ($form_id == 'views_form_commerce_cart_form_default') {
-    $form['#prefix'] = l(t('Checkout'), '/checkout', array('attributes' => array('class' => array('checkout-button-2')))) . $form['#prefix'];
+    $form['#prefix'] = l(t('Checkout'), '/checkout', array('attributes' => array('onClick' => 'document.getElementById("edit-checkout").click()', 'class' => array('checkout-button-2')))) . $form['#prefix'];
     $form['actions']['back_to_shop'] = array(
       '#markup' => l(t('Continue shopping'), '/boutique', array('attributes' => array('class' => array('back-to-shop')))),
+      '#weigth' => -10,
      );
   }
 }
