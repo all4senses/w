@@ -8,7 +8,6 @@ stylesheets[all][] = system.menus.css
 
 stylesheets[all][] = dist/css/plugin.css
 stylesheets[all][] = dist/css/all.css
-stylesheets[all][] = dist/css/custom_temp.css
 
 scripts[] = dist/js/is-mobile.js
 scripts[] = dist/js/all.js
