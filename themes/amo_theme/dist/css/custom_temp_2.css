@@ -1,4 +1,6 @@
-
+body.page-checkout {    
+    overflow: auto;
+}
 
 .page-checkout #page {
     height: initial;
