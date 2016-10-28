@@ -62,6 +62,9 @@ function commerce_stock_permission() {
  * Alters the add-to-cart form to show out-of-stock items and add a validator.
  */
 function commerce_stock_form_alter(&$form, &$form_state, $form_id) {
+  
+  dpm($form_id, '$form_id'); dpm($form,'$form');
+  
   $commerce_cart_form = 'commerce_cart_form';
   if (module_exists('commerce_cart_view_override')) {
     $commerce_cart_form = variable_get('commerce_cart_view_override_page_view', 'commerce_cart_form');
