@@ -1,4 +1,4 @@
-<div id="page">
+<div id="page  checkout-page-cart">
   <div id="content" class="R" role="main">
     <?php print render($tabs); ?>
       
