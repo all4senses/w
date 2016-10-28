@@ -1,4 +1,4 @@
-<div id="page">
+<div id="page" class="checkout----page--checkout--payment.tpl.php">
   <div id="content" class="R" role="main">
     <?php print render($tabs); ?>
     <div class="ajax-wrapper">
