@@ -201,6 +201,13 @@ function amo_product_preprocess_node(&$vars) {
   }
 }
 
+function amo_product_preprocess_page(&$vars) {
+//  if ($vars['node']->type == 'product' && $vars['view_mode'] == 'list') {
+//    $vars['theme_hook_suggestions'][] = 'node__product__list';
+//  }
+  
+  dpm($vars,'$vars in amo_product_preprocess_page');
+}
 
 /**
  * Implements hook_form_FORM_ID_alter
