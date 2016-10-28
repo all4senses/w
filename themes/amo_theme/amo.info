@@ -13,24 +13,24 @@ stylesheets[all][] = dist/css/custom_temp_2.css
 scripts[] = dist/js/is-mobile.js
 scripts[] = dist/js/all.js
 
-;scripts[] = src/js/plugin/featherlight.js
-;scripts[] = src/js/plugin/gd.js
-;scripts[] = src/js/plugin/gmaps.js
-scripts[] = src/js/plugin/iCheck.js
-;scripts[] = src/js/plugin/jquery-ui.js
-;scripts[] = src/js/plugin/select2.js
-;scripts[] = src/js/plugin/slick.js
+scripts[] = src/js/plugin/featherlight.js
+scripts[] = src/js/plugin/gd.js
+scripts[] = src/js/plugin/gmaps.js
+;scripts[] = src/js/plugin/iCheck.js
+scripts[] = src/js/plugin/jquery-ui.js
+scripts[] = src/js/plugin/select2.js
+scripts[] = src/js/plugin/slick.js
 
-;scripts[] = src/js/node/news.js
-;scripts[] = src/js/node/spirit.js
+scripts[] = src/js/node/news.js
+scripts[] = src/js/node/spirit.js
 
-;scripts[] = src/js/layout/layout.js
-;scripts[] = src/js/layout/mobile.js
-;scripts[] = src/js/layout/navigation.js
+scripts[] = src/js/layout/layout.js
+scripts[] = src/js/layout/mobile.js
+scripts[] = src/js/layout/navigation.js
 scripts[] = src/js/layout/products_and_lists.js
-;scripts[] = src/js/layout/responsive.js
-;scripts[] = src/js/layout/scroll.js
-;scripts[] = src/js/layout/swipe.js
+scripts[] = src/js/layout/responsive.js
+scripts[] = src/js/layout/scroll.js
+scripts[] = src/js/layout/swipe.js
 
 
 
