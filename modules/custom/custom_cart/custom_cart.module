@@ -53,9 +53,8 @@ function custom_cart_add_to_cart_form_submit($form, &$form_state){
  */
 function custom_cart_form_alter(&$form, &$form_state, $form_id) {
   
-  dpm($form_id, '$form_id'); dpm($form,'$form');
+  //dpm($form_id, '$form_id'); dpm($form,'$form');
   
-
   if ($form_id == 'views_form_commerce_cart_form_default') {
     $form['#prefix'] = l(t('Checkout'), '/checkout', array('attributes' => array('onClick' => 'document.getElementById("edit-checkout").click()', 'class' => array('checkout-button-2')))) . $form['#prefix'];
     $form['actions']['back_to_shop'] = array(
