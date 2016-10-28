@@ -8,3 +8,16 @@ body.page-checkout, body.page-cart {
 .page-checkout .ajax-wrapper, .page-cart .ajax-wrapper {
     position: initial;
 }
+
+
+.page-cart .checkout-button-2 {
+    background: #000!important;
+    color: #fff!important;
+    height: auto!important;
+    line-height: normal!important;
+    font-size: 1.8rem;
+    font-weight: 700;
+    border: 1px solid #000;
+    padding: 1rem;
+    transition: all .3s;
+}

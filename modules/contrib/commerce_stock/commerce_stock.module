@@ -62,9 +62,6 @@ function commerce_stock_permission() {
  * Alters the add-to-cart form to show out-of-stock items and add a validator.
  */
 function commerce_stock_form_alter(&$form, &$form_state, $form_id) {
-  
-  dpm($form_id, '$form_id'); dpm($form,'$form');
-  
   $commerce_cart_form = 'commerce_cart_form';
   if (module_exists('commerce_cart_view_override')) {
     $commerce_cart_form = variable_get('commerce_cart_view_override_page_view', 'commerce_cart_form');
@@ -221,7 +218,6 @@ function commerce_stock_form_commerce_cart_validate($form, &$form_state) {
   $line_item_index = array_keys($form_state['line_items']);
   if (isset($form_state['input']['edit_quantity'])) {
     $products = array();
-    dpm($form_state['values'], '$form_state');
     foreach ($form_state['values']['edit_quantity'] as $index => $qty) {
 
              $line_item = $form_state['line_items'][$line_item_index[$index]];

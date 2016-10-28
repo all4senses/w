@@ -104,7 +104,7 @@ gulp.task('js', function() {
   .pipe(plumber({errorHandler: onError}))
   //.pipe(babel({blacklist:['useStrict']}))
   .pipe(concat('all.js'))
-  //.pipe(uglify())
+  .pipe(uglify())
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest('dist/js'))
   .pipe(livereload())
