@@ -4,7 +4,7 @@
 
 <a href="<?php print $choice_link; ?>"
    data-orientation="top"
-   class="mobile-only ajax-link ajax-link-nav ajax-link-top">
+   class="mobile-only ajax-link ajax-link-nav ajax-link-top amo-product-page">
 </a>
 
 <div id="product-filter" class="desktop-only">
@@ -123,7 +123,7 @@
 
 <a href="<?php print $choice_link; ?>"
    data-orientation="<?php print $orientation; ?>"
-   class="ajax-link ajax-link-back-<?php print $orientation; ?>">
+   class="ajax-link ajax-link-back-<?php print $orientation; ?> amo-product-page">
 </a>
 
 

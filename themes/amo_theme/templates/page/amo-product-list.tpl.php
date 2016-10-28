@@ -72,13 +72,13 @@
 <?php /**/ ?>
 <a href="<?php print $prev_col['link']; ?>"
    data-orientation="left"
-   class="ajax-link ajax-link-nav ajax-link-left black-link">
+   class="ajax-link ajax-link-nav ajax-link-left black-link amo-product-list">
   <?php print $prev_col['label']; ?>
 </a>
 
 <a href="<?php print $next_col['link']; ?>"
    data-orientation="right"
-   class="ajax-link ajax-link-nav ajax-link-right black-link">
+   class="ajax-link ajax-link-nav ajax-link-right black-link amo-product-list">
   <?php print $next_col['label']; ?>
 </a>
 
