@@ -1,13 +1,7 @@
 <div id="page checkout-page-cart.tpl.php">
   <div id="content" class="R" role="main">
     <?php print render($tabs); ?>
-      
-      
-    <?php 
-    
-      dpm($page,'$page'); 
-    ?>  
-      
+        
     <div class="ajax-wrapper">
       <div class="wrapper wrapper-content">
 
