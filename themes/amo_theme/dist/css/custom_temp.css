@@ -233,3 +233,11 @@
 .cart-summary-wrapper:hover, .cart-summary-wrapper.opened {
     width: 39.2rem!important;
 }
+
+
+.page-checkout #page {
+    height: initial;
+}
+.page-checkout .ajax-wrapper {
+    position: initial;
+}
