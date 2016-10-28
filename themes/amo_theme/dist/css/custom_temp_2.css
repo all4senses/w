@@ -1,10 +1,10 @@
-body.page-checkout {    
+body.page-checkout, body.page-cart {    
     overflow: auto;
 }
 
-.page-checkout #page {
+.page-checkout #page, .page-cart #page {
     height: initial;
 }
-.page-checkout .ajax-wrapper {
+.page-checkout .ajax-wrapper, .page-cart .ajax-wrapper {
     position: initial;
 }
