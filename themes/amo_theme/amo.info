@@ -11,7 +11,7 @@ stylesheets[all][] = dist/css/all.css
 stylesheets[all][] = dist/css/custom_temp_2.css
 
 scripts[] = dist/js/is-mobile.js
-;scripts[] = dist/js/all.js
+scripts[] = dist/js/all.js
 
 
 regions[header]  = Header
