@@ -88,7 +88,16 @@ Drupal.behaviors.custom_ajax_navigation={attach:function(context,settings){
       var html_content = html.find('.ajax-wrapper').html();
       var style = html.find('.ajax-wrapper').attr('style');
       var wrapper = $('<div class="ajax-wrapper from-' + orientation + ' ' + body_class +'">' + html_content + '</div>').appendTo(content);
-	  my_inits();
+      // Fix: update body elemet classes upon ajax done, add 'admin-menu' if it was there
+      //
+      var has_admin_menu_class = $('body').hasClass('admin-menu') ? ' admin-menu' : '';
+      $('body').attr('class', body_class + has_admin_menu_class);
+      $('#classes-ajax').attr('class', body_class + has_admin_menu_class);
+      //console.log('Current page title: ' + $('head title')[0].innerHTML);
+      // Do not know yet new page title but you can use line below instead lines above
+      //location.reload();
+      // END OF: Fix: update body elent classes, add 'admin-menu' if it was there
+      my_inits();
       $('.R.add-to-cart').on('click',function(e){
         e.preventDefault();
       });
