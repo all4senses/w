@@ -14,9 +14,6 @@ npm-debug.log
 src/bower/jquery
 */src/bower/jquery
 
-dist/css
-dist/js
-
 # Eclipse
 .settings
 .buildpath
