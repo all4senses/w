@@ -1,4 +1,4 @@
-<div id="page original-page-template">
+<div id="page" class="original-page-template">
   <?php /*
   <header id="header">
 

@@ -1,4 +1,4 @@
-<div class="product teaser" id="nid-<?php echo $node->nid; ?>"  data-color="<?php echo (!empty($node->field_product_color['und'][0]['tid']) ? $node->field_product_color['und'][0]['tid'] : ''); ?>" data-chateau="<?php echo (!empty($node->field_product_type['und'][0]['value']) ? $node->field_product_type['und'][0]['value'] : ''); ?>">
+<div class="product teaser" nid="nid-<?php echo $node->nid; ?>"  data-color="<?php echo (!empty($node->field_product_color['und'][0]['tid']) ? $node->field_product_color['und'][0]['tid'] : ''); ?>" data-chateau="<?php echo (!empty($node->field_product_type['und'][0]['value']) ? $node->field_product_type['und'][0]['value'] : ''); ?>">
   <?php   
   
     if ($node->nid == 7) { 
@@ -21,8 +21,8 @@
   <div class="product-teaser-hover">
     <h1 class="product-title">
       <?php 
-        //print $title; 
-        print l($title, 'node/' . $node->nid); 
+        print $title; 
+        //print l($title, 'node/' . $node->nid); 
       ?>
     </h1>
     <span class="price-product"><?php print $node->field_product_price['und'][0]['value']; ?></span>
