@@ -68,12 +68,12 @@
           position relative
           text-align center
           width (100% / 2)
+          @media (min-width 600px) and (max-width 766px)
+            width (100% / 3)
+          @media (min-width 767px)
+            width (100% / 4)
           &.hidden
             display none
-          @media (min-width: 600px)
-            width (100% / 3)
-          @media (min-width: 767px)
-            width (100% / 4)
           .price-product
             font-size 1.8rem
             display block
