@@ -5,9 +5,10 @@
     ul
       width inherit
       word-wrap break-word
-  .ajax-wrapper > .wrapper
-    .title.desktop-only
-      margin-left 2rem
+  .wrapper
+    max-width none
+  .wrapper-content
+    margin 0 10rem
   .cart-summary-wrapper
     background-color #fff
     color #000
@@ -95,7 +96,7 @@
             top 0
             left 0
             opacity 0.8
-            padding 4rem 1.8rem
+            padding 2rem 1.8rem
             text-align center
             .product-title, .price-product
               color #FFF
@@ -103,17 +104,28 @@
                 color #FFF
                 font-weight 600
             .text
-              margin 35 0
-              font-size 1.68rem
+              font-size: 1.68rem;
               line-height 1.5
+              height 100%
+              position absolute
+              top 0
+              width 100%
+              left 0
+              padding 8rem 1rem 9rem
               p
                 float none
+            .add-to-cart-wrapper-list
+              position absolute
+              left 0
+              bottom 0
+              padding 0 1.2rem 1rem
+              width 100%
           &:hover
             .product-teaser-hover
               display block
     #product-filter-boutique
       display block
-      right 2rem
+      right 0
       line-height 6.5rem
       @media (min-width 767px)
         line-height 21.5rem
