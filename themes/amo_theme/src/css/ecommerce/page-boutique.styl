@@ -68,9 +68,9 @@
           position relative
           text-align center
           width (100% / 2)
-          @media (min-width 600px) and (max-width 766px)
+          @media (min-width 640px) and (max-width (860px - 1))
             width (100% / 3)
-          @media (min-width 767px)
+          @media (min-width 860px)
             width (100% / 4)
           &.hidden
             display none
@@ -102,6 +102,8 @@
               margin 35 0
               font-size 1.68rem
               line-height 1.5
+              p
+                float none
           &:hover
             .product-teaser-hover
               display block
