@@ -82,7 +82,11 @@ hide-text()
 
 // hide scrollbar mixin
 hidescrollbar()
-  -ms-overflow-style none // IE 10+
-  overflow -moz-scrollbars-none;  // Firefox
-  &::-webkit-scrollbar
-    display none  // Safari and Chrome
+  overflow-x hidden
+  > div
+    padding-right 10%
+    width 110%
+  //-ms-overflow-style none // IE 10+
+  //overflow -moz-scrollbars-none;  // Firefox
+  //&::-webkit-scrollbar
+  //  display none  // Safari and Chrome

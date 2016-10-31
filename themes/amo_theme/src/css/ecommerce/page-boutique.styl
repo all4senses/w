@@ -8,7 +8,9 @@
   .wrapper
     max-width none
   .wrapper-content
-    margin 0 20rem
+    margin 0 auto
+    @media (min-width 600px)
+      margin 0 20rem
     @media (min-width 1800px)
       margin 0 auto
       max-width 1340px !important
@@ -57,12 +59,12 @@
       //top 0
       //width 100%
       .wrapper
+        hidescrollbar()
         padding-top 20.5rem
         height 100vh
       .product-list-content
         clearfix()
         overflow-y auto
-        hidescrollbar()
         height 100%
         width 100%
         margin 0 auto
