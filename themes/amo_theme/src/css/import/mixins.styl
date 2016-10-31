@@ -79,3 +79,10 @@ hide-text()
   overflow hidden
   text-indent 110%
   white-space nowrap
+
+// hide scrollbar mixin
+hidescrollbar()
+  -ms-overflow-style none // IE 10+
+  overflow -moz-scrollbars-none;  // Firefox
+  &::-webkit-scrollbar
+    display none  // Safari and Chrome
