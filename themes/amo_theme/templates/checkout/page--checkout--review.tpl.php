@@ -1,4 +1,3 @@
-
 <div id="page" class="checkout----page--cgeckout--review.tpl.php">
   <div id="content" class="R" role="main">
     <?php print render($tabs); ?>
@@ -35,9 +34,9 @@
       <?php print render($nav_map); ?>
 	  
 	    <div class="page-cart-bottom">
-		     <a href="#"><img src="http://<?php print $_SERVER['HTTP_HOST']; ?>/sites/all/themes/amo_theme/dist/img/layout/contact-service-client.jpg"></a>
-		     <img src="http://<?php print $_SERVER['HTTP_HOST']; ?>/sites/all/themes/amo_theme/dist/img/layout/mode-paiements.jpg">
-   	    </div>
+        <a href="#"><img src="http://<?php print $_SERVER['HTTP_HOST']; ?>/sites/all/themes/amo_theme/dist/img/layout/contact-service-client.jpg"></a>
+        <a href="#"><img src="http://<?php print $_SERVER['HTTP_HOST']; ?>/sites/all/themes/amo_theme/dist/img/layout/mode-paiements.jpg"></a>
+      </div>
 	  
     </div>
 		
