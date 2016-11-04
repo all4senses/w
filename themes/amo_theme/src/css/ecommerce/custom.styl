@@ -319,6 +319,12 @@
 .page-cart button, .page-cart .button, .page-cart input[type=reset], .page-cart input[type=submit], .page-cart input[type=button]
   color #000 !important
 
+.page-cart, .page-checkout
+  .wrapper
+    max-width none
+    margin 0 22rem
+    clearfix()
+
 .page-cart
   table
     &.views-table
@@ -398,7 +404,7 @@
           font-weight bold !important
   .line-item-summary
     float right
-    margin-top 47px
+    margin-top 2rem
     font-size 18px !important
     font-weight bold
     text-transform uppercase
@@ -429,6 +435,14 @@
     margin-right 25px
     font-size 18px
     font-weight bold
+  .back-to-shop
+    color #000
+    float left
+    font-size 1.8rem
+    font-weight 700
+    text-transform uppercase
+    &::before
+      content "< "
 
 .page-cart table.views-table.cols-5 tbody, .page-cart table.views-table.cols-5 tr, .page-cart table.views-table.cols-5 th, .page-cart table.views-table.cols-5 td, .page-cart table.views-table.cols-5, .page-cart table.views-table.cols-5 thead
   display block
@@ -469,12 +483,20 @@
   fieldset#edit-cart-contents
     display none
   form#commerce-checkout-form-checkout
-    width 100%
-    margin-top 100px
+    > div
+      clearfix()
+    #customer-profile-billing-ajax-wrapper
+      clearfix()
     *
       font-family lato
     fieldset#edit-customer-profile-billing
       width 40%
+    .custom-wrapper
+      clearfix()
+      height calc(100vh - 56rem)
+      //margin-right -5%
+      overflow-y auto
+    overflow-y: auto;
   .nav-map
     .col
       a
@@ -489,6 +511,7 @@
   fieldset
     &.commerce_coupon
       display none
+      margin-bottom 4rem
   span
     &.select2-selection
       margin-bottom 15px !important
@@ -538,7 +561,8 @@
   fieldset#edit-buttons
     margin-top 20px
     border-top 1px solid #000
-  input#edit-cancel
+    width 95%
+  input#edit-cancel, input#edit-back
     margin-right 25px
     font-size 18px
     font-weight bold
