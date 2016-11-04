@@ -50,3 +50,11 @@ function amo_commerce_custom_forms($form_id) {
     );
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter(): commerce_checkout_form_checkout
+ */
+function amo_commerce_custom_form_commerce_checkout_form_checkout_alter(&$form, &$form_state) {
+  $form['cart_contents']['#prefix'] = '<div class="custom-wrapper">';
+  $form['buttons']['#prefix'] = '</div>';
+}
