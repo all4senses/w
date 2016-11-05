@@ -48,7 +48,7 @@
       <ul>
         <?php foreach($filter_links as $tid => $filter_link) : ?>
         <li class="item prodfiltre-<?php print $tid; ?>" style="float: left; list-style-type: none; height: initial;">
-          <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
+          <a href="#" class="toggle-products" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
             <span><span></span></span>
             <?php print $filter_link['term_name']; ?>
           </a>
