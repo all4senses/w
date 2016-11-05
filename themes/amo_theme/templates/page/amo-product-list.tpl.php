@@ -43,7 +43,7 @@
   
   
   <ul id="product-filter-boutique" class="desktop-only filter-block" style="line-height: 7rem;">
-    <a href="#" class="toggle-button opened"><?php echo t('FILTER PAR'); ?></a>  
+    <a href="#" class="toggle-filter opened"><?php echo t('FILTER PAR'); ?></a>  
     <li class="filter-select-toggle">
       <ul>
         <?php foreach($filter_links as $tid => $filter_link) : ?>
