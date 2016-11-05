@@ -31,7 +31,7 @@
   
   ?>
   
-  <div id="product-filter-boutique" class="desktop-only">
+  <div id="product-filter-boutique" class="desktop-only filter-block">
     <?php foreach($filter_links as $tid => $filter_link) : ?>
     <span class="prodfiltre-<?php print $tid; ?>">
       <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
@@ -40,6 +40,44 @@
       </a></span>
     <?php endforeach; ?>
   </div>
+  
+  <ul id="product-filter-boutique-2" class="mobile-only filter-block">
+    <a href="#" class="toggle-button"><?php echo t('FILTER PAR'); ?></a>  
+    <li class="filter-select-toggle">
+      <ul>
+        <?php foreach($filter_links as $tid => $filter_link) : ?>
+        <li class="item prodfiltre-<?php print $tid; ?>">
+          <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
+            <span><span></span></span>
+            <?php print $filter_link['term_name']; ?>
+          </a>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </li>
+  </ul>
+  
+  
+  <?php /*
+  
+  <div class="R intro-mobile mobile-only">
+   
+    <div class="product-filters-wrapper">
+      <select class="product-filters" data-placeholder="<?php print t('FILTER BY:') ?>">
+        <?php foreach($sort_links as $tid => $sort_link) : ?>
+          <option value="">
+            <?php print t('FILTER BY:') ?>
+          </option>
+          <option value="<?php print $tid; ?>" class="prodfiltre-<?php print $tid; ?>">
+            <?php print $sort_link; ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+
+  </div>
+  
+  */ ?>
   
   
   
