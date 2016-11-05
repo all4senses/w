@@ -31,7 +31,7 @@
   
   ?>
   
-  <div id="product-filter-boutique" class="desktop-only filter-block">
+  <div id="product-filter-boutique-2" class="desktop-only filter-block" style="display: none;">
     <?php foreach($filter_links as $tid => $filter_link) : ?>
     <span class="prodfiltre-<?php print $tid; ?>">
       <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
@@ -41,7 +41,8 @@
     <?php endforeach; ?>
   </div>
   
-  <ul id="product-filter-boutique-2" class="mobile-only filter-block">
+  
+  <ul id="product-filter-boutique" class="desktop-only filter-block">
     <a href="#" class="toggle-button"><?php echo t('FILTER PAR'); ?></a>  
     <li class="filter-select-toggle">
       <ul>
