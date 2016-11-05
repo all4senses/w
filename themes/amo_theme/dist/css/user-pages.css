@@ -1,0 +1,59 @@
+.page-user .wrapper {
+  max-width: none;
+  margin: 0 22rem;
+}
+
+.page-user .nav-map .col a {
+  background-color: #000;
+}
+
+.page-user .title.desktop-only,
+.page-user .mobile-title.mobile-only{
+  color: #000;
+}
+
+ul.tabs {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  z-index: 2;
+}
+
+ul.tabs:after {
+  content: "";
+  position: relative;
+  display: block;
+  float: left;
+  top: -1px;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  z-index: -1;
+}
+
+ul.tabs li {
+  border: solid 1px #000;
+  float: left;
+  background: #fff;
+  color: #000;
+  margin: 0 1.5rem;
+}
+
+ul.tabs li a {
+  display: block;
+  padding: 1.5rem 3.5rem;
+  font-size: 2.1rem;
+  color: inherit;
+  background: inherit;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0;
+}
+
+ul.tabs li.is-active {
+  background: #fff;
+  color: #000;
+  border-bottom: solid 1px #fff;
+}
