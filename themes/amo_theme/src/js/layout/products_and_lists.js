@@ -1,5 +1,15 @@
 (function($){'use strict';Drupal.behaviors.products_and_list={attach:function(context,settings){
 
+
+    $('body').on('click', '#product-filter-boutique a.toggle-button', function(event) {
+        event.preventDefault();
+
+        var e = $(this);
+        e.toggleClass('opened');
+        e.parent().find('ul').toggleClass('hidden');
+    });
+    
+    
     $('body').on('click', '#product-filter-boutique a', function(event) {
         event.preventDefault();
 

@@ -42,12 +42,12 @@
   </div>
   
   
-  <ul id="product-filter-boutique" class="desktop-only filter-block">
-    <a href="#" class="toggle-button"><?php echo t('FILTER PAR'); ?></a>  
+  <ul id="product-filter-boutique" class="desktop-only filter-block" style="line-height: 7rem;">
+    <a href="#" class="toggle-button opened"><?php echo t('FILTER PAR'); ?></a>  
     <li class="filter-select-toggle">
       <ul>
         <?php foreach($filter_links as $tid => $filter_link) : ?>
-        <li class="item prodfiltre-<?php print $tid; ?>">
+        <li class="item prodfiltre-<?php print $tid; ?>" style="float: left; list-style-type: none; height: initial;">
           <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
             <span><span></span></span>
             <?php print $filter_link['term_name']; ?>
