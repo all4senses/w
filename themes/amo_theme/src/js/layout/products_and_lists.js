@@ -6,7 +6,7 @@
 
         var e = $(this);
         e.toggleClass('opened');
-        e.parent().find('ul').toggleClass('hidden').toggle();
+        e.parent().find('.filter-select-toggle').toggleClass('hidden').toggle();
     });
     
     

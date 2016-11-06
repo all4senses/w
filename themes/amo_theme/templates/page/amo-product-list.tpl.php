@@ -30,9 +30,9 @@
   }
   ?>
   
-  <ul id="product-filter-boutique" class="desktop-only filter-block" style="line-height: 7rem;">
-    <a href="#" class="toggle-filter opened"><?php echo t('FILTER PAR'); ?></a>  
-    <li class="filter-select-toggle">
+  <div id="product-filter-boutique" class="filter-block" style="line-height: 7rem;">
+    <a href="#" class="toggle-filter opened mobile-only"><?php echo t('FILTER PAR'); ?></a>
+    <div class="filter-select-toggle">
       <ul>
         <?php foreach($filter_links as $tid => $filter_link) : ?>
         <li class="item prodfiltre-<?php print $tid; ?>" style="float: left; list-style-type: none; height: initial;">
@@ -43,12 +43,12 @@
         </li>
         <?php endforeach; ?>
       </ul>
-    </li>
-  </ul>
+    </div>
+  </div>
   
   
-  <div class="product-list-wrapper scroll-mobile-to">
-    <div class="wrapper">
+  <div class="product-list-wrapper">
+    <div class="wrapper scroll-mobile-to">
       
       <div class="product-list-content">
         

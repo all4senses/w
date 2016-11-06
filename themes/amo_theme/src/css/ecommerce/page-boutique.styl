@@ -137,14 +137,15 @@
             .product-teaser-hover
               display block
     #product-filter-boutique
+      position absolute
       display block
       right -10rem
       line-height 6.5rem
       @media (min-width 767px)
         line-height 21.5rem
       z-index 99
-      a
-        display inline-block
+      a.toggle-products
+        //display inline-block
         color #000
         margin-left 1.2rem
         font-size 1.4rem
@@ -218,3 +219,27 @@
         &.active,
         &:hover
           background-color #bd1787
+
+.mobile
+  .page-boutique .product-list
+    .product-list-wrapper
+      .wrapper
+        padding-top 0
+  #product-filter-boutique
+    background-color #fff
+    position relative !important
+    float left
+    left 0
+    width 100%
+    .toggle-filter
+      color #000
+    .filter-select-toggle
+      clearfix()
+      list-style none
+      ul
+        clearfix()
+        list-style none
+        li.item
+          background-color #fff
+          a
+            color #000
