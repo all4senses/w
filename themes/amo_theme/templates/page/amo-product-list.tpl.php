@@ -28,19 +28,7 @@
       }
     }
   }
-  
   ?>
-  
-  <div id="product-filter-boutique-2" class="desktop-only filter-block" style="display: none;">
-    <?php foreach($filter_links as $tid => $filter_link) : ?>
-    <span class="prodfiltre-<?php print $tid; ?>">
-      <a href="#" data-color="<?php print ($filter_link['vocabulary'] == 'color' ? $tid : ''); ?>" data-chateau="<?php print ($filter_link['vocabulary'] == 'type_chateau' ? $tid : ''); ?>">
-        <span><span></span></span>
-        <?php print $filter_link['term_name']; ?>
-      </a></span>
-    <?php endforeach; ?>
-  </div>
-  
   
   <ul id="product-filter-boutique" class="desktop-only filter-block" style="line-height: 7rem;">
     <a href="#" class="toggle-filter opened"><?php echo t('FILTER PAR'); ?></a>  
@@ -59,41 +47,6 @@
   </ul>
   
   
-  <?php /*
-  
-  <div class="R intro-mobile mobile-only">
-   
-    <div class="product-filters-wrapper">
-      <select class="product-filters" data-placeholder="<?php print t('FILTER BY:') ?>">
-        <?php foreach($sort_links as $tid => $sort_link) : ?>
-          <option value="">
-            <?php print t('FILTER BY:') ?>
-          </option>
-          <option value="<?php print $tid; ?>" class="prodfiltre-<?php print $tid; ?>">
-            <?php print $sort_link; ?>
-          </option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-
-  </div>
-  
-  */ ?>
-  
-  
-  
-  <?php /*
-  <div id="product-filter-boutique" class="desktop-only">
-    <?php foreach($filter_links as $tid => $filter_link) : ?>
-    <span class="prodfiltre-<?php print $tid; ?>">
-      <a href="#" data-color="<?php print $tid; ?>">
-        <span><span></span></span>
-        <?php print $filter_link; ?>
-      </a></span>
-    <?php endforeach; ?>
-  </div>
-  */ ?>
-
   <div class="product-list-wrapper scroll-mobile-to">
     <div class="wrapper">
       
