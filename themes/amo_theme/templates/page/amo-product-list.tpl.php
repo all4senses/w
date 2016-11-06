@@ -32,7 +32,7 @@
   
   <div id="product-filter-boutique" class="filter-block" style="line-height: 7rem;">
     <a href="#" class="toggle-filter opened mobile-only"><?php echo t('FILTER PAR'); ?></a>
-    <div class="filter-select-toggle">
+    <div class="filter-select-toggle" style="display: none;">
       <ul>
         <?php foreach($filter_links as $tid => $filter_link) : ?>
         <li class="item prodfiltre-<?php print $tid; ?>" style="float: left; list-style-type: none; height: initial;">
