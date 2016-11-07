@@ -220,8 +220,16 @@
         &:hover
           background-color #bd1787
 
-.mobile
-  .page-boutique .product-list
+.mobile .page-boutique
+  //.cart-summary-wrapper
+  //  left auto !important
+  //  right 0
+  //  top 0
+  .ajax-link-nav.black-link
+    background-color rgba(0, 0, 0, 0)
+    &::after
+      filter none
+  .product-list
     .product-list-wrapper
       .wrapper
         background-color #fff
@@ -229,7 +237,7 @@
   .product-list-content
     .product.teaser
       //pointer-events none
-      height 70% !important
+      height auto !important
       padding 0 0.8rem 5.8rem !important
       .product-title
         font-size 1.4rem !important
@@ -243,8 +251,8 @@
           float left
           .form-item-quantity
             margin-right 1rem !important
-        .text
-          display none
+        //.text
+        //  display none
       //&::before
       //  content "\002715"
       //  display block
@@ -257,10 +265,16 @@
   .mobile-title
     background-image url(../img/product/bg-slide-land-mobile.jpg)
     background-repeat no-repeat
+    color #fff
     width 32rem
     height 47.9rem
     width 100%
     background-size cover
+    .title
+      color inherit
+      left 0
+      font-size 3.4rem
+      text-align center
   #product-filter-boutique
     background-color #fff
     position relative !important
