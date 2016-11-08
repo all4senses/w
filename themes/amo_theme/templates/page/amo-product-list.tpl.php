@@ -7,12 +7,12 @@
       <?php print t("Scroll"); ?>
     </a>
   </div>
- 
+
 
   <div class="title desktop-only"><?php print t('Online Store'); ?></div>
 
-  <?php 
-  
+  <?php
+
   $filter_links = array();
   $type_chateau = array('castle' => 'Chateau les amoureuses', 'land' => 'Terres des amoureuses');
   foreach($type_chateau as $tid => $name) {
@@ -29,9 +29,9 @@
     }
   }
   ?>
-  
+
   <div id="product-filter-boutique" class="filter-block" style="line-height: 7rem;">
-    <a href="#" class="toggle-filter opened mobile-only"><?php echo t('FILTER PAR'); ?></a>
+    <a href="#" class="toggle-filter mobile-only"><?php echo t('FILTER PAR'); ?></a>
     <div class="filter-select-toggle" style="display: none;">
       <ul>
         <?php foreach($filter_links as $tid => $filter_link) : ?>
@@ -45,17 +45,17 @@
       </ul>
     </div>
   </div>
-  
-  
+
+
   <div class="product-list-wrapper">
     <div class="wrapper scroll-mobile-to">
-      
+
       <div class="product-list-content">
-        
+
         <?php print render($products); ?>
       </div>
     </div>
-   
+
   </div>
 
 
@@ -74,24 +74,28 @@
 			$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 			foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
 				if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
-					$quantity += $line_item_wrapper->quantity->value();    
+					$quantity += $line_item_wrapper->quantity->value();
 				}
-			} 
+			}
 		}
 		if (empty($_SESSION['hostip_data'])) {$_SESSION['hostip_data'] = hostip_get_iptocountry_info();}
-		if (trim($_SESSION['hostip_data']['countrycode']) != "DD"): 
+		if (trim($_SESSION['hostip_data']['countrycode']) != "DD"):
 	?>
-      <div class="cart-summary-wrapper cf">
+      <div class="cart-summary-wrapper cf desktop-only">
           <div class="cart-summary-left">
             <p><?php print ($quantity == 0 ? t('Vous avez <strong><span class="qty">0</span> article</strong> dans votre panier') : t('Vous avez <strong><span class="qty">'.$quantity.'</span> articles</strong> dans votre panier')); ?></p>
             <p><a href="#"><?php print t('Visitez La Boutique En Ligne'); ?></a></p>
-            <p><a href="/cart"><?php print t('Finalisez Votre Commande'); ?></a></p>          
+            <p><a href="/cart"><?php print t('Finalisez Votre Commande'); ?></a></p>
           </div>
           <div class="cart-summary-right">
             <a href="#" class="mon-panier"><img src="/sites/all/themes/amo_theme/dist/img/picto/mon_panier.png"></a>
           </div>
       </div>
-	<?php endif; ?>
+      <div class="cart-summary-wrapper mobile-only">
+        <a href="/cart" class="mon-panier"></a>
+      </div>
+
+    <?php endif; ?>
 
 
 <?php /**/ ?>
