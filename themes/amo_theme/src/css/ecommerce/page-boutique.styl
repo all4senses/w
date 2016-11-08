@@ -15,9 +15,9 @@
       margin 0 auto
       max-width 1340px !important
   .cart-summary-wrapper
-    background-color #fff
+    //background-color #fff
     color #000
-    left -321px
+    //left -321px
     padding 0 0 0 40px
     position absolute
     text-align center
@@ -221,10 +221,11 @@
           background-color #bd1787
 
 .mobile .page-boutique
-  //.cart-summary-wrapper
-  //  left auto !important
-  //  right 0
-  //  top 0
+  .cart-summary-wrapper
+    //position fixed
+    //z-index 99
+    &:hover
+      width 5rem !important
   .ajax-link-nav.black-link
     background-color rgba(0, 0, 0, 0)
     &::after
@@ -263,7 +264,7 @@
       //  color #fff
       //  z-index 99
   .mobile-title
-    background-image url(../img/product/bg-slide-land-mobile.jpg)
+    background-image url(../img/bg/bg-header-boutique-mobile.png)
     background-repeat no-repeat
     color #fff
     width 32rem
